@@ -9,6 +9,7 @@ class TodoListField extends StatefulWidget {
   final ValueNotifier<bool> _obscureTextVN;
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
+  final FocusNode? focusNode;
 
   TodoListField({
     required this.label,
@@ -16,6 +17,7 @@ class TodoListField extends StatefulWidget {
     this.obscureText = false,
     this.suffixIconButton,
     this.validator,
+    this.focusNode,
     Key? key,
   })  : assert(
           obscureText ? suffixIconButton == null : true,
@@ -40,6 +42,7 @@ class _TodoListFieldState extends State<TodoListField> {
     return ValueListenableBuilder<bool>(
       valueListenable: widget._obscureTextVN,
       builder: (_, obscureTextValue, __) => TextFormField(
+        focusNode: widget.focusNode,
         controller: widget.controller,
         validator: widget.validator,
         decoration: InputDecoration(

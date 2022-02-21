@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 import '../../exception/auth_exception.dart';
 import './user_repository.dart';
@@ -36,6 +37,40 @@ class UserRepositoryImpl implements UserRepository {
       } else {
         throw AuthException(message: 'Erro ao cadastrar usuário');
       }
+    }
+  }
+
+  @override
+  Future<User?> login({required String email, required String password}) async {
+    try {
+      final credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return credential.user;
+    } on PlatformException catch (e) {
+      throw AuthException(message: e.message ?? 'Erro ao realizar login ');
+    } on FirebaseAuthException catch (e) {
+      throw AuthException(message: e.message ?? 'Erro ao realizar login ');
+    }
+  }
+
+  @override
+  Future<void> forgotPassword({required String email}) async {
+    try {
+      final loginTypes = await _auth.fetchSignInMethodsForEmail(email);
+
+      if (loginTypes.contains('password')) {
+        await _auth.sendPasswordResetEmail(email: email);
+      } else if (loginTypes.contains('Google')) {
+        throw AuthException(message: 'Cadastro realizado pelo Google!');
+      } else {
+        throw AuthException(message: 'E-mail não cadastrado!');
+      }
+    } on PlatformException catch (e) {
+      print(e);
+      throw AuthException(message: 'Erro ao resetar senha');
     }
   }
 }

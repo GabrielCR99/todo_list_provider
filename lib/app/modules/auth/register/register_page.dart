@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/ui/theme_extensions.dart';
 import '../../../core/widgets/todo_list_field.dart';
 import '../../../core/widgets/todo_list_logo.dart';
+import 'register_controller.dart';
 
-class RegisterPage extends StatelessWidget {
-  RegisterPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailEC = TextEditingController();
-  final passwordEC = TextEditingController();
-  final confirmPasswordEC = TextEditingController();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final _confirmPasswordEC = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    DefaultListenerNotifier(changeNotifier: context.read<RegisterController>())
+        .listener(
+      context: context,
+      successCallback: (_, listener) {
+        listener.dispose();
+        Navigator.of(context).pop();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +85,7 @@ class RegisterPage extends StatelessWidget {
                 children: [
                   TodoListField(
                     label: 'E-mail',
-                    controller: emailEC,
+                    controller: _emailEC,
                     validator: Validatorless.multiple([
                       Validatorless.required('E-mail obrigatório!'),
                       Validatorless.email('E-mail inválido!'),
@@ -74,7 +95,7 @@ class RegisterPage extends StatelessWidget {
                   TodoListField(
                     label: 'Senha',
                     obscureText: true,
-                    controller: passwordEC,
+                    controller: _passwordEC,
                     validator: Validatorless.multiple([
                       Validatorless.required('Senha obrigatória!'),
                       Validatorless.min(6, 'Senha deve conter 6 caracteres'),
@@ -84,9 +105,9 @@ class RegisterPage extends StatelessWidget {
                   TodoListField(
                     label: 'Confirmar senha',
                     obscureText: true,
-                    controller: confirmPasswordEC,
+                    controller: _confirmPasswordEC,
                     validator: Validatorless.compare(
-                      passwordEC,
+                      _passwordEC,
                       'Senhas devem ser iguais!',
                     ),
                   ),
@@ -98,7 +119,16 @@ class RegisterPage extends StatelessWidget {
                         padding: EdgeInsets.all(10.0),
                         child: Text('Salvar'),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        final formValid =
+                            _formKey.currentState?.validate() ?? false;
+                        if (formValid) {
+                          context.read<RegisterController>().register(
+                                email: _emailEC.text,
+                                password: _passwordEC.text,
+                              );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),

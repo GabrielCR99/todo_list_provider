@@ -13,4 +13,12 @@ class UserServiceImpl implements UserService {
   @override
   Future<User?> register({required String email, required String password}) =>
       _repository.register(email: email, password: password);
+
+  @override
+  Future<User?> login({required String email, required String password}) =>
+      _repository.login(email: email, password: password);
+
+  @override
+  Future<void> forgotPassword({required String email}) =>
+      _repository.forgotPassword(email: email);
 }
