@@ -111,4 +111,14 @@ class UserRepositoryImpl implements UserRepository {
     await GoogleSignIn().signOut();
     _auth.signOut();
   }
+
+  @override
+  Future<void> updateDisplayName({required String name}) async {
+    final user = _auth.currentUser;
+
+    if (user != null) {
+      await user.updateDisplayName(name);
+      user.reload();
+    }
+  }
 }
