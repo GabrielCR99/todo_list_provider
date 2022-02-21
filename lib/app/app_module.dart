@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_widget.dart';
+import 'core/auth/auth_provider.dart';
 import 'core/database/sqlite_connection_factory.dart';
 import 'repositories/user/user_repository.dart';
 import 'repositories/user/user_repository_impl.dart';
@@ -23,6 +24,12 @@ class AppModule extends StatelessWidget {
         ),
         Provider<UserService>(
           create: (context) => UserServiceImpl(repository: context.read()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              AuthProvider(auth: context.read(), service: context.read())
+                ..loadListener(),
+          lazy: false,
         ),
       ],
       child: const AppWidget(),

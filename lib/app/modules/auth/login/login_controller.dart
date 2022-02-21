@@ -46,4 +46,26 @@ class LoginController extends DefaultChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> googleLogin() async {
+    try {
+      showLoadingAndResetState();
+      infoMessage = null;
+      notifyListeners();
+      final user = await _service.googleLogin();
+
+      if (user != null) {
+        success();
+      } else {
+        _service.logout();
+        setError('Erro ao realizar login pelo google');
+      }
+    } on AuthException catch (e) {
+      _service.logout();
+      setError(e.message);
+    } finally {
+      hideLoading();
+      notifyListeners();
+    }
+  }
 }

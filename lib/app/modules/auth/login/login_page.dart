@@ -36,9 +36,7 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       },
-      successCallback: (_, listener) {
-        print('Sucesso');
-      },
+      successCallback: (_, listener) {},
     );
   }
 
@@ -162,7 +160,9 @@ class _LoginPageState extends State<LoginPage> {
                               SignInButton(
                                 Buttons.Google,
                                 text: 'Continue com o Google',
-                                onPressed: () {},
+                                onPressed: () {
+                                  context.read<LoginController>().googleLogin();
+                                },
                                 shape: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(30)),

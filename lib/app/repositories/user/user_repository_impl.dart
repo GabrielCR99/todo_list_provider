@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../exception/auth_exception.dart';
 import './user_repository.dart';
@@ -68,9 +69,46 @@ class UserRepositoryImpl implements UserRepository {
       } else {
         throw AuthException(message: 'E-mail não cadastrado!');
       }
-    } on PlatformException catch (e) {
-      print(e);
+    } on PlatformException {
       throw AuthException(message: 'Erro ao resetar senha');
     }
+  }
+
+  @override
+  Future<User?> googleLogin() async {
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+
+      if (googleUser != null) {
+        final loginTypes =
+            await _auth.fetchSignInMethodsForEmail(googleUser.email);
+
+        if (loginTypes.contains('password')) {
+          throw AuthException(
+            message: 'Você utilizou o email para cadastro no app.',
+          );
+        } else {
+          final googleAuth = await googleUser.authentication;
+          final firebaseCredential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+          final userCredential =
+              await _auth.signInWithCredential(firebaseCredential);
+
+          return userCredential.user;
+        }
+      }
+    } on FirebaseException catch (e) {
+      throw AuthException(message: e.message ?? 'Erro interno');
+    }
+
+    return null;
+  }
+
+  @override
+  Future<void> logout() async {
+    await GoogleSignIn().signOut();
+    _auth.signOut();
   }
 }
