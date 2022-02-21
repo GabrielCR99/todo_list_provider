@@ -1,0 +1,65 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+
+  plugins:
+    - dart_code_metrics
+
+  errors:
+    prefer_relative_imports: warning
+    constant_identifier_names: warning
+    non_constant_identifier_names: warning
+    unused_import: warning
+    avoid_redundant_argument_values: warning
+    require_trailing_commas: warning
+    always_put_required_named_parameters_first: warning
+    prefer_single_quotes: warning
+
+
+linter:
+  rules:
+    avoid_print: true
+    always_declare_return_types: true
+    always_put_control_body_on_new_line: true
+    cascade_invocations: true
+    prefer_const_constructors: true
+    prefer_relative_imports: true
+    prefer_single_quotes: true
+    prefer_conditional_assignment: true
+    prefer_const_declarations: true
+    avoid_redundant_argument_values: true
+    avoid_types_on_closure_parameters: true
+    require_trailing_commas: true
+    always_put_required_named_parameters_first: true
+    overridden_fields: false
+    unawaited_futures: false
+    eol_at_end_of_file: true
+    join_return_with_assignment: true
+
+dart_code_metrics:
+  anti-patterns:
+    - long-method
+    - long-parameter-list
+  metrics:
+    cyclomatic-complexity: 20
+    maximum-nesting-level: 5
+    number-of-parameters: 6
+    source-lines-of-code: 50
+    halstead-volume: 150
+    lines-of-code: 100
+    number-of-methods: 10
+    weight-of-class: 0.33
+
+  metrics-exclude:
+    - test/**
+  rules:
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-empty-block
+    - prefer-trailing-comma
+    - prefer-conditional-expressions
+    - no-equal-then-else
+    - double-literal-format
+    - prefer-first
+    - prefer-conditional-expressions
+    - prefer-const-border-radius

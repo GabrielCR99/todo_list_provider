@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "328206024183",
+    "project_id": "todo-list-provider-bdbd3",
+    "storage_bucket": "todo-list-provider-bdbd3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:328206024183:android:601ae62899b7d5265ec2f2",
+        "android_client_info": {
+          "package_name": "br.com.roveri.todo_list_provider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "328206024183-iunuirjq1adbutjg1s1r4hicgb5udg4i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.roveri.todo_list_provider",
+            "certificate_hash": "4073eb1105e3ccec05c30037459c9b1a7086cb95"
+          }
+        },
+        {
+          "client_id": "328206024183-nh9nfu41msbejk164j9d7br6gjlh34bn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuVR5wmpxbef9OwybSc0zEC8syuPFYO2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "328206024183-nh9nfu41msbejk164j9d7br6gjlh34bn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
