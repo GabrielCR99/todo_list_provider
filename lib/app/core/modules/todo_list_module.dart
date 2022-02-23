@@ -22,4 +22,13 @@ abstract class TodoListModule {
           ),
         ),
       );
+
+  Widget getPage(BuildContext context, {required String path}) {
+    final widgetBuilder = _routes[path];
+    if (widgetBuilder != null) {
+      return TodoListPage(page: widgetBuilder, bindings: _bindings);
+    }
+
+    throw Exception();
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/ui/theme_extensions.dart';
 import '../../core/ui/todo_list_icons.dart';
+import '../tasks/task_module.dart';
 import 'widgets/home_drawer.dart';
 import 'widgets/home_filters.dart';
 import 'widgets/home_header.dart';
@@ -28,7 +29,23 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Navigator.of(context).push(
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 400),
+            transitionsBuilder: (context, animation, _, child) {
+              animation =
+                  CurvedAnimation(parent: animation, curve: Curves.easeInQuad);
+
+              return ScaleTransition(
+                scale: animation,
+                alignment: Alignment.bottomRight,
+                child: child,
+              );
+            },
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                TaskModule().getPage(context, path: '/task/create'),
+          ),
+        ),
         backgroundColor: context.primaryColor,
         child: const Icon(Icons.add),
       ),
