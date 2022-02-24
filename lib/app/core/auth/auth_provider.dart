@@ -18,7 +18,7 @@ class AuthProvider extends ChangeNotifier {
 
   void loadListener() {
     _auth.userChanges().listen((_) => notifyListeners());
-    _auth.idTokenChanges().listen((user) {
+    _auth.authStateChanges().listen((user) {
       if (user != null) {
         AppNavigator.to.pushNamedAndRemoveUntil('/home', (_) => false);
       } else {

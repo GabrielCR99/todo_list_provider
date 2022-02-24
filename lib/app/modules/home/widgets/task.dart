@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+
+import '../../../models/task_model.dart';
+import '../home_controller.dart';
 
 class Task extends StatelessWidget {
-  const Task({Key? key}) : super(key: key);
+  final TaskModel model;
+  final dateFormat = DateFormat('dd/MM/y');
+
+  Task({
+    required this.model,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,20 +24,37 @@ class Task extends StatelessWidget {
         boxShadow: [BoxShadow(color: Colors.grey)],
       ),
       margin: const EdgeInsets.symmetric(vertical: 5),
-      child: IntrinsicHeight(
+      child: Slidable(
+        key: const ValueKey(0),
+        endActionPane: ActionPane(
+          motion: const StretchMotion(),
+          children: [
+            SlidableAction(
+              icon: Icons.delete,
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              label: 'Deletar',
+              onPressed: (_) =>
+                  context.read<HomeController>().deleteTask(task: model),
+            ),
+          ],
+        ),
         child: ListTile(
           contentPadding: const EdgeInsets.all(8),
-          title: const Text(
-            'Descrição da task',
-            style: TextStyle(decoration: TextDecoration.lineThrough),
+          title: Text(
+            dateFormat.format(model.dateTime),
+            style: const TextStyle(decoration: TextDecoration.lineThrough),
           ),
           leading: Checkbox(
-            value: true,
-            onChanged: (value) {},
+            value: model.finished,
+            onChanged: (_) =>
+                context.read<HomeController>().checkOrUncheckTask(task: model),
           ),
-          subtitle: const Text(
-            '21/02/2022',
-            style: TextStyle(decoration: TextDecoration.lineThrough),
+          subtitle: Text(
+            model.description,
+            style: TextStyle(
+              decoration: model.finished ? TextDecoration.lineThrough : null,
+            ),
           ),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
