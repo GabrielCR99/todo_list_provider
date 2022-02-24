@@ -38,7 +38,7 @@ class CardFilter extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${totalTasksModel?.totalTasks ?? 0} TASKS',
+              _getTasksNotDone(),
               style: context.titleStyle.copyWith(
                 fontSize: 10,
                 color: selected ? Colors.white : Colors.grey,
@@ -68,6 +68,13 @@ class CardFilter extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getTasksNotDone() {
+    final totalTasks = totalTasksModel?.totalTasks ?? 0;
+    final totalTasksDone = totalTasksModel?.totalTasksDones ?? 0;
+
+    return '${totalTasks - totalTasksDone} TASKS';
   }
 
   double _getFinishedPercentage() {

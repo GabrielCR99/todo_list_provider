@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       },
-      successCallback: (_, listener) {},
     );
   }
 
@@ -56,11 +55,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SizedBox(height: 10),
                       const TodoListLogo(),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
+                          horizontal: 20,
                           vertical: 20,
                         ),
                         child: Form(

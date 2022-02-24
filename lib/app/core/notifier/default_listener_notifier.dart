@@ -13,7 +13,7 @@ class DefaultListenerNotifier {
 
   void listener({
     required BuildContext context,
-    required SuccesVoidCallback successCallback,
+    SuccesVoidCallback? successCallback,
     ErrorVoidCallback? errorCallback,
     EverVoidCallback? everCallback,
   }) {
@@ -34,13 +34,13 @@ class DefaultListenerNotifier {
         }
         Messages.of(context)
             .showError(message: changeNotifier.error ?? 'Erro interno');
-      } else if (changeNotifier.isSuccess) {
+      } else if (changeNotifier.isSuccess && successCallback != null) {
         successCallback(changeNotifier, this);
       }
     });
   }
 
-  void dispose() => changeNotifier.removeListener(() {});
+  void dispose() => changeNotifier.removeListener(() => Never);
 }
 
 typedef SuccesVoidCallback = void Function(

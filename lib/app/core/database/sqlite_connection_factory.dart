@@ -74,5 +74,6 @@ class SqliteConnectionFactory {
     batch.commit();
   }
 
-  Future<void> _onDowngrade(Database db, int oldVersion, int version) async {}
+  Future<void> _onDowngrade(Database db, int oldVersion, int version) async =>
+      Never;
 }

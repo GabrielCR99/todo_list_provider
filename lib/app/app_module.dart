@@ -26,9 +26,11 @@ class AppModule extends StatelessWidget {
           create: (context) => UserServiceImpl(repository: context.read()),
         ),
         ChangeNotifierProvider(
-          create: (context) =>
-              AuthProvider(auth: context.read(), service: context.read())
-                ..loadListener(),
+          create: (context) => AuthProvider(
+            auth: context.read(),
+            service: context.read(),
+            connection: context.read(),
+          )..loadListener(),
           lazy: false,
         ),
       ],
