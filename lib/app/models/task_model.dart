@@ -4,7 +4,7 @@ class TaskModel {
   final DateTime dateTime;
   final bool finished;
 
-  TaskModel({
+  const TaskModel({
     required this.id,
     required this.description,
     required this.dateTime,

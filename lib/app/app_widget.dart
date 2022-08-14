@@ -1,3 +1,4 @@
+import 'package:asuka/asuka.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,25 +12,25 @@ import 'modules/splash/splash_page.dart';
 import 'modules/tasks/task_module.dart';
 
 class AppWidget extends StatefulWidget {
-  const AppWidget({Key? key}) : super(key: key);
+  const AppWidget({super.key});
 
   @override
   State<AppWidget> createState() => _AppWidgetState();
 }
 
 class _AppWidgetState extends State<AppWidget> {
-  final sqliteAdmin = SqliteAdminConnection();
+  final _sqliteAdmin = SqliteAdminConnection();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(sqliteAdmin);
+    WidgetsBinding.instance.addObserver(_sqliteAdmin);
   }
 
   @override
   void dispose() {
     super.dispose();
-    WidgetsBinding.instance?.removeObserver(sqliteAdmin);
+    WidgetsBinding.instance.removeObserver(_sqliteAdmin);
   }
 
   @override
@@ -37,15 +38,12 @@ class _AppWidgetState extends State<AppWidget> {
     return MaterialApp(
       title: 'To Do List Provider',
       locale: const Locale('pt', 'BR'),
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-      ],
+      supportedLocales: const [Locale('pt', 'BR')],
       localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        ...GlobalMaterialLocalizations.delegates,
         DefaultCupertinoLocalizations.delegate,
       ],
+      builder: Asuka.builder,
       navigatorKey: AppNavigator.navigatorKey,
       home: const SplashPage(),
       theme: TodoListUiConfig.theme,

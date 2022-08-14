@@ -9,15 +9,14 @@ class TodoListPage extends StatelessWidget {
   const TodoListPage({
     required WidgetBuilder page,
     List<SingleChildWidget>? bindings,
-    Key? key,
+    super.key,
   })  : _bindings = bindings,
-        _page = page,
-        super(key: key);
+        _page = page;
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: _bindings ?? [Provider(create: (context) => Object())],
+      providers: _bindings ?? [Provider(create: (_) => Object())],
       child: Builder(builder: (context) => _page(context)),
     );
   }

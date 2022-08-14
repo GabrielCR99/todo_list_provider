@@ -9,7 +9,7 @@ import '../../../core/widgets/todo_list_logo.dart';
 import 'register_controller.dart';
 
 class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -25,17 +25,13 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: context.read<RegisterController>())
-        .listener(
-      context: context,
-      successCallback: (_, listener) {
-        listener.dispose();
-      },
-    );
+        .listener(successCallback: (_, listener) => listener.dispose());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,17 +48,18 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: ClipOval(
             child: Container(
+              color: context.primaryColor.withAlpha(20),
+              padding: const EdgeInsets.all(8),
               child: Icon(
                 Icons.arrow_back_ios_outlined,
                 size: 20,
                 color: context.primaryColor,
               ),
-              color: context.primaryColor.withAlpha(20),
-              padding: const EdgeInsets.all(8),
             ),
           ),
         ),
@@ -114,24 +111,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                      child: const Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text('Salvar'),
-                      ),
-                      onPressed: () {
-                        final formValid =
-                            _formKey.currentState?.validate() ?? false;
-                        if (formValid) {
-                          context.read<RegisterController>().register(
-                                email: _emailEC.text,
-                                password: _passwordEC.text,
-                              );
-                        }
-                      },
+                      onPressed: _onPressedRegister,
                       style: ElevatedButton.styleFrom(
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text('Salvar'),
                       ),
                     ),
                   ),
@@ -142,5 +130,15 @@ class _RegisterPageState extends State<RegisterPage> {
         ],
       ),
     );
+  }
+
+  void _onPressedRegister() {
+    final formValid = _formKey.currentState?.validate() ?? false;
+    if (formValid) {
+      context.read<RegisterController>().register(
+            email: _emailEC.text,
+            password: _passwordEC.text,
+          );
+    }
   }
 }

@@ -1,26 +1,11 @@
-import 'package:flutter/material.dart';
-
-import 'theme_extensions.dart';
+import 'package:asuka/asuka.dart';
 
 class Messages {
-  final BuildContext context;
+  Messages._();
 
-  Messages._(this.context);
+  static void showError({required String message}) =>
+      AsukaSnackbar.alert(message).show();
 
-  factory Messages.of(BuildContext context) => Messages._(context);
-
-  void showError({required String message}) =>
-      _showMessage(message: message, color: Colors.red);
-
-  void showInfo({required String message}) =>
-      _showMessage(message: message, color: context.primaryColor);
-
-  void _showMessage({required String message, required Color color}) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: color,
-        content: Text(message),
-      ),
-    );
-  }
+  static void showInfo({required String message}) =>
+      AsukaSnackbar.info(message).show();
 }

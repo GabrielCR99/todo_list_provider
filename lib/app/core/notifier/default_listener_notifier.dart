@@ -1,18 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
-
+import '../ui/loader.dart';
 import '../ui/messages.dart';
 import 'default_change_notifier.dart';
 
 class DefaultListenerNotifier {
   final DefaultChangeNotifier changeNotifier;
 
-  DefaultListenerNotifier({
-    required this.changeNotifier,
-  });
+  DefaultListenerNotifier({required this.changeNotifier});
 
   void listener({
-    required BuildContext context,
     SuccesVoidCallback? successCallback,
     ErrorVoidCallback? errorCallback,
     EverVoidCallback? everCallback,
@@ -23,7 +18,7 @@ class DefaultListenerNotifier {
       }
 
       if (changeNotifier.loading) {
-        Loader.show(context);
+        Loader.show();
       } else {
         Loader.hide();
       }
@@ -32,8 +27,7 @@ class DefaultListenerNotifier {
         if (errorCallback != null) {
           errorCallback(changeNotifier, this);
         }
-        Messages.of(context)
-            .showError(message: changeNotifier.error ?? 'Erro interno');
+        Messages.showError(message: changeNotifier.error ?? 'Erro interno');
       } else if (changeNotifier.isSuccess && successCallback != null) {
         successCallback(changeNotifier, this);
       }

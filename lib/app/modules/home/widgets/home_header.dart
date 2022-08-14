@@ -5,7 +5,7 @@ import '../../../core/auth/auth_provider.dart';
 import '../../../core/ui/theme_extensions.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({Key? key}) : super(key: key);
+  const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

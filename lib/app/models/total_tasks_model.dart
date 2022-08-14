@@ -2,7 +2,7 @@ class TotalTasksModel {
   final int totalTasks;
   final int totalTasksDones;
 
-  TotalTasksModel({
+  const TotalTasksModel({
     required this.totalTasks,
     required this.totalTasksDones,
   });

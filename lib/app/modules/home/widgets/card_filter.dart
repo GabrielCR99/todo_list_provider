@@ -17,8 +17,8 @@ class CardFilter extends StatelessWidget {
     required this.taskFilter,
     required this.selected,
     this.totalTasksModel,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

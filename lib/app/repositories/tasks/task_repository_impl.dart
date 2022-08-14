@@ -1,13 +1,12 @@
 import '../../core/database/sqlite_connection_factory.dart';
 import '../../models/task_model.dart';
-import './task_repository.dart';
+import 'task_repository.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final SqliteConnectionFactory _connection;
 
-  TaskRepositoryImpl({
-    required SqliteConnectionFactory connection,
-  }) : _connection = connection;
+  const TaskRepositoryImpl({required SqliteConnectionFactory connection})
+      : _connection = connection;
 
   @override
   Future<void> saveTask({
@@ -15,7 +14,6 @@ class TaskRepositoryImpl implements TaskRepository {
     required String description,
   }) async {
     final conn = await _connection.openConnection();
-    await Future.delayed(const Duration(seconds: 1));
     await conn.insert('todo', {
       'id': null,
       'descricao': description,
@@ -58,13 +56,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<void> deleteTask({required TaskModel task}) async {
+  Future<void> deleteTaskById({required int id}) async {
     final conn = await _connection.openConnection();
     await conn.rawDelete(
       ''' 
         DELETE FROM todo 
         WHERE id = ? ''',
-      [task.id],
+      [id],
     );
   }
 }

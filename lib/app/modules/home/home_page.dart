@@ -15,11 +15,8 @@ import 'widgets/home_week_filter.dart';
 class HomePage extends StatefulWidget {
   final HomeController _controller;
 
-  const HomePage({
-    required HomeController controller,
-    Key? key,
-  })  : _controller = controller,
-        super(key: key);
+  const HomePage({required HomeController controller, super.key})
+      : _controller = controller;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,13 +26,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    DefaultListenerNotifier(changeNotifier: widget._controller).listener(
-      context: context,
-      successCallback: (_, listener) {
-        listener.dispose();
-      },
-    );
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    DefaultListenerNotifier(changeNotifier: widget._controller)
+        .listener(successCallback: (_, listener) => listener.dispose());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       widget._controller.loadTotalTasks();
       widget._controller.findTasks(filter: TaskFilterEnum.today);
     });
@@ -44,6 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFFAFBFE),
       appBar: AppBar(
         iconTheme: IconThemeData(color: context.primaryColor),
         elevation: 0,
@@ -52,10 +46,10 @@ class _HomePageState extends State<HomePage> {
           PopupMenuButton(
             itemBuilder: (_) => [
               PopupMenuItem<bool>(
+                value: true,
                 child: Text(
                   ' ${widget._controller.showFinishedTasks ? 'Esconder' : 'Mostrar'} tarefas concluídas',
                 ),
-                value: true,
               ),
             ],
             onSelected: (_) => widget._controller.showOrHideFinishedTasks(),
@@ -68,8 +62,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: context.primaryColor,
         child: const Icon(Icons.add),
       ),
-      backgroundColor: const Color(0xFFFAFBFE),
-      drawer: HomeDrawer(),
+      drawer: const HomeDrawer(),
       body: LayoutBuilder(
         builder: (_, constraints) {
           return SingleChildScrollView(
@@ -103,7 +96,7 @@ class _HomePageState extends State<HomePage> {
     await Navigator.of(context).push(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 400),
-        transitionsBuilder: (context, animation, _, child) {
+        transitionsBuilder: (_, animation, __, child) {
           animation =
               CurvedAnimation(parent: animation, curve: Curves.easeInQuad);
 
@@ -113,7 +106,7 @@ class _HomePageState extends State<HomePage> {
             child: child,
           );
         },
-        pageBuilder: (context, animation, secondaryAnimation) =>
+        pageBuilder: (context, _, __) =>
             TaskModule().getPage(context, path: '/task/create'),
       ),
     );

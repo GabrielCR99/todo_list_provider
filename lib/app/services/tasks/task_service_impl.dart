@@ -1,14 +1,13 @@
 import '../../models/task_model.dart';
 import '../../models/week_task_model.dart';
 import '../../repositories/tasks/task_repository.dart';
-import './task_service.dart';
+import 'task_service.dart';
 
 class TaskServiceImpl implements TaskService {
   final TaskRepository _repository;
 
-  TaskServiceImpl({
-    required TaskRepository repository,
-  }) : _repository = repository;
+  const TaskServiceImpl({required TaskRepository repository})
+      : _repository = repository;
 
   @override
   Future<void> createTask({
@@ -56,6 +55,6 @@ class TaskServiceImpl implements TaskService {
       _repository.checkOrUncheckTask(task: task);
 
   @override
-  Future<void> deleteTask({required TaskModel task}) =>
-      _repository.deleteTask(task: task);
+  Future<void> deleteTaskById({required int id}) =>
+      _repository.deleteTaskById(id: id);
 }

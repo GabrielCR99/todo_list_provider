@@ -7,6 +7,7 @@ import '../../services/tasks/task_service.dart';
 
 class HomeController extends DefaultChangeNotifier {
   final TaskService _service;
+
   TotalTasksModel? todayTotalTasks;
   TotalTasksModel? tomorrowTotalTasks;
   TotalTasksModel? weekTotalTasks;
@@ -86,8 +87,6 @@ class HomeController extends DefaultChangeNotifier {
       filteredTasks = filteredTasks.where((task) => !task.finished).toList();
     }
 
-    await Future.delayed(const Duration(milliseconds: 500));
-
     hideLoading();
     notifyListeners();
   }
@@ -102,7 +101,6 @@ class HomeController extends DefaultChangeNotifier {
   Future<void> refreshPage() async {
     await findTasks(filter: selectedFilter);
     await loadTotalTasks();
-    await Future.delayed(const Duration(milliseconds: 500));
     notifyListeners();
   }
 
@@ -123,9 +121,7 @@ class HomeController extends DefaultChangeNotifier {
   Future<void> deleteTask({required TaskModel task}) async {
     showLoadingAndResetState();
     notifyListeners();
-    await Future.delayed(const Duration(milliseconds: 500));
-    final deletedTask = task.copyWith(id: task.id);
-    await _service.deleteTask(task: deletedTask);
+    await _service.deleteTaskById(id: task.id);
     hideLoading();
     refreshPage();
   }

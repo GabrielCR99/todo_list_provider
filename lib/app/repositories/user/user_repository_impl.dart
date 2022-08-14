@@ -5,14 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../exception/auth_exception.dart';
-import './user_repository.dart';
+import 'user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final FirebaseAuth _auth;
 
-  UserRepositoryImpl({
-    required FirebaseAuth auth,
-  }) : _auth = auth;
+  const UserRepositoryImpl({required FirebaseAuth auth}) : _auth = auth;
 
   @override
   Future<User?> register({
@@ -31,12 +29,21 @@ class UserRepositoryImpl implements UserRepository {
       if (e.code == 'email-already-exists') {
         final loginTypes = await _auth.fetchSignInMethodsForEmail(email);
         if (loginTypes.contains('password')) {
-          throw AuthException(message: 'E-mail já utilizado!');
+          Error.throwWithStackTrace(
+            AuthException(message: 'E-mail já utilizado!'),
+            s,
+          );
         } else {
-          throw AuthException(message: 'Utilize sua conta Google para entrar.');
+          Error.throwWithStackTrace(
+            AuthException(message: 'Utilize sua conta Google para entrar.'),
+            s,
+          );
         }
       } else {
-        throw AuthException(message: 'Erro ao cadastrar usuário');
+        Error.throwWithStackTrace(
+          AuthException(message: 'Erro ao cadastrar usuário'),
+          s,
+        );
       }
     }
   }
@@ -50,10 +57,16 @@ class UserRepositoryImpl implements UserRepository {
       );
 
       return credential.user;
-    } on PlatformException catch (e) {
-      throw AuthException(message: e.message ?? 'Erro ao realizar login ');
-    } on FirebaseAuthException catch (e) {
-      throw AuthException(message: e.message ?? 'Erro ao realizar login ');
+    } on PlatformException catch (e, s) {
+      Error.throwWithStackTrace(
+        AuthException(message: e.message ?? 'Erro ao realizar login '),
+        s,
+      );
+    } on FirebaseAuthException catch (e, s) {
+      Error.throwWithStackTrace(
+        AuthException(message: e.message ?? 'Erro ao realizar login '),
+        s,
+      );
     }
   }
 
@@ -69,8 +82,11 @@ class UserRepositoryImpl implements UserRepository {
       } else {
         throw AuthException(message: 'E-mail não cadastrado!');
       }
-    } on PlatformException {
-      throw AuthException(message: 'Erro ao resetar senha');
+    } on PlatformException catch (_, s) {
+      Error.throwWithStackTrace(
+        AuthException(message: 'Erro ao resetar senha'),
+        s,
+      );
     }
   }
 
@@ -99,8 +115,11 @@ class UserRepositoryImpl implements UserRepository {
           return userCredential.user;
         }
       }
-    } on FirebaseException catch (e) {
-      throw AuthException(message: e.message ?? 'Erro interno');
+    } on FirebaseException catch (e, s) {
+      Error.throwWithStackTrace(
+        AuthException(message: e.message ?? 'Erro interno'),
+        s,
+      );
     }
 
     return null;

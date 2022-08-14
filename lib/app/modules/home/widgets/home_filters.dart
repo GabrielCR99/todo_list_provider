@@ -8,8 +8,7 @@ import '../home_controller.dart';
 import 'card_filter.dart';
 
 class HomeFilters extends StatelessWidget {
-  const HomeFilters({Key? key}) : super(key: key);
-
+  const HomeFilters({super.key});
   @override
   Widget build(BuildContext context) {
     return Column(

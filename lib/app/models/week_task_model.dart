@@ -5,7 +5,7 @@ class WeekTaskModel {
   final DateTime endDate;
   final List<TaskModel> tasks;
 
-  WeekTaskModel({
+  const WeekTaskModel({
     required this.startDate,
     required this.endDate,
     required this.tasks,

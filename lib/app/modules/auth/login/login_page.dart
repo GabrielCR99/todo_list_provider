@@ -4,6 +4,7 @@ import 'package:flutter_signin_button/button_view.dart';
 import 'package:provider/provider.dart';
 import 'package:validatorless/validatorless.dart';
 
+import '../../../core/navigator/app_navigator.dart';
 import '../../../core/notifier/default_listener_notifier.dart';
 import '../../../core/ui/messages.dart';
 import '../../../core/widgets/todo_list_field.dart';
@@ -11,7 +12,7 @@ import '../../../core/widgets/todo_list_logo.dart';
 import 'login_controller.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -28,11 +29,10 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     DefaultListenerNotifier(changeNotifier: context.read<LoginController>())
         .listener(
-      context: context,
-      everCallback: (notifier, listener) {
+      everCallback: (notifier, _) {
         if (notifier is LoginController) {
           if (notifier.hasInfo) {
-            Messages.of(context).showInfo(message: notifier.infoMessage!);
+            Messages.showInfo(message: notifier.infoMessage!);
           }
         }
       },
@@ -93,45 +93,21 @@ class _LoginPageState extends State<LoginPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextButton(
+                                    onPressed: _onPressedForgotPassword,
                                     child: const Text('Esqueceu sua senha? '),
-                                    onPressed: () {
-                                      if (_emailEC.text.isNotEmpty) {
-                                        context
-                                            .read<LoginController>()
-                                            .forgotPassword(
-                                              email: _emailEC.text,
-                                            );
-                                      } else {
-                                        _emailFocus.requestFocus();
-                                        Messages.of(context).showError(
-                                          message:
-                                              'Digite um E-mail para recuperar a senha',
-                                        );
-                                      }
-                                    },
                                   ),
                                   ElevatedButton(
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Text('Login'),
-                                    ),
-                                    onPressed: () {
-                                      final formValid =
-                                          _formKey.currentState?.validate() ??
-                                              false;
-                                      if (formValid) {
-                                        context.read<LoginController>().login(
-                                              email: _emailEC.text,
-                                              password: _passwordEC.text,
-                                            );
-                                      }
-                                    },
+                                    onPressed: _onPressedLogin,
                                     style: ElevatedButton.styleFrom(
                                       shape: const RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(20),
                                         ),
                                       ),
+                                    ),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(10.0),
+                                      child: Text('Login'),
                                     ),
                                   ),
                                 ],
@@ -158,9 +134,9 @@ class _LoginPageState extends State<LoginPage> {
                               SignInButton(
                                 Buttons.Google,
                                 text: 'Continue com o Google',
-                                onPressed: () {
-                                  context.read<LoginController>().googleLogin();
-                                },
+                                onPressed: () => context
+                                    .read<LoginController>()
+                                    .googleLogin(),
                                 shape: const OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(30)),
@@ -171,11 +147,11 @@ class _LoginPageState extends State<LoginPage> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const Text('Não tem conta? '),
+                                  const Text('Não tem conta?'),
                                   TextButton(
                                     child: const Text('Cadastre-se!'),
-                                    onPressed: () => Navigator.of(context)
-                                        .pushNamed('/register'),
+                                    onPressed: () =>
+                                        AppNavigator.to.pushNamed('/register'),
                                   ),
                                 ],
                               ),
@@ -192,5 +168,28 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _onPressedLogin() {
+    final formValid = _formKey.currentState?.validate() ?? false;
+    if (formValid) {
+      context.read<LoginController>().login(
+            email: _emailEC.text,
+            password: _passwordEC.text,
+          );
+    }
+  }
+
+  void _onPressedForgotPassword() {
+    if (_emailEC.text.isNotEmpty) {
+      context.read<LoginController>().forgotPassword(
+            email: _emailEC.text,
+          );
+    } else {
+      _emailFocus.requestFocus();
+      Messages.showError(
+        message: 'Digite um E-mail para recuperar a senha',
+      );
+    }
   }
 }

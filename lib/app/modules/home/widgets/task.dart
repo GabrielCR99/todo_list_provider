@@ -10,10 +10,7 @@ class Task extends StatelessWidget {
   final TaskModel model;
   final dateFormat = DateFormat('dd/MM/y');
 
-  Task({
-    required this.model,
-    Key? key,
-  }) : super(key: key);
+  Task({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +22,16 @@ class Task extends StatelessWidget {
       ),
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Slidable(
-        key: const ValueKey(0),
         endActionPane: ActionPane(
           motion: const StretchMotion(),
           children: [
             SlidableAction(
               icon: Icons.delete,
+              spacing: 0,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
               label: 'Deletar',
@@ -58,7 +59,6 @@ class Task extends StatelessWidget {
           ),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            side: BorderSide(),
           ),
         ),
       ),

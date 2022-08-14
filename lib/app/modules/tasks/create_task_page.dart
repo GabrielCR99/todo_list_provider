@@ -10,11 +10,8 @@ import 'widgets/calendar_button.dart';
 class CreateTaskPage extends StatefulWidget {
   final CreateTaskController _controller;
 
-  const CreateTaskPage({
-    required CreateTaskController controller,
-    Key? key,
-  })  : _controller = controller,
-        super(key: key);
+  const CreateTaskPage({required CreateTaskController controller, super.key})
+      : _controller = controller;
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
@@ -29,7 +26,6 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: widget._controller).listener(
-      context: context,
       successCallback: (_, listener) {
         listener.dispose();
         Navigator.pop(context);
@@ -42,12 +38,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: context.primaryColor,
-        onPressed: () {
-          final formValid = _formKey.currentState?.validate() ?? false;
-          if (formValid) {
-            widget._controller.save(_descriptionEC.text);
-          }
-        },
+        onPressed: _onPressedSaveTask,
         label: const Text(
           'Salvar Task',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -94,5 +85,12 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         ),
       ),
     );
+  }
+
+  void _onPressedSaveTask() {
+    final formValid = _formKey.currentState?.validate() ?? false;
+    if (formValid) {
+      widget._controller.save(_descriptionEC.text);
+    }
   }
 }

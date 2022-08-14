@@ -18,16 +18,11 @@ class TodoListField extends StatefulWidget {
     this.suffixIconButton,
     this.validator,
     this.focusNode,
-    Key? key,
-  })  : assert(
-          obscureText ? suffixIconButton == null : true,
-          'obscureText não pode ser enviado com suffixIconButton',
-        ),
-        _obscureTextVN = ValueNotifier(obscureText),
-        super(key: key);
+    super.key,
+  }) : _obscureTextVN = ValueNotifier(obscureText);
 
   @override
-  _TodoListFieldState createState() => _TodoListFieldState();
+  State<TodoListField> createState() => _TodoListFieldState();
 }
 
 class _TodoListFieldState extends State<TodoListField> {
@@ -46,19 +41,15 @@ class _TodoListFieldState extends State<TodoListField> {
         controller: widget.controller,
         validator: widget.validator,
         decoration: InputDecoration(
-          suffixIcon: widget.suffixIconButton ??
-              (widget.obscureText
-                  ? IconButton(
-                      onPressed: () =>
-                          widget._obscureTextVN.value = !obscureTextValue,
-                      icon: Icon(
-                        !obscureTextValue
-                            ? TodoListIcons.eyeSlash
-                            : TodoListIcons.eye,
-                        size: 15,
-                      ),
-                    )
-                  : null),
+          suffixIcon: widget.obscureText
+              ? IconButton(
+                  onPressed: () =>
+                      widget._obscureTextVN.value = !obscureTextValue,
+                  icon: Icon(
+                    _getIcon(obscureTextValue),
+                  ),
+                )
+              : widget.suffixIconButton,
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ),
@@ -74,4 +65,7 @@ class _TodoListFieldState extends State<TodoListField> {
       ),
     );
   }
+
+  IconData _getIcon(bool show) =>
+      show ? TodoListIcons.eye : TodoListIcons.eyeSlash;
 }

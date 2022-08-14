@@ -6,5 +6,5 @@ class SqliteMigrationFactory {
         MigrationV1(),
       ];
 
-  List<Migration> getUpgradeMigration(int version) => [];
+  List<Migration> getUpgradeMigration(int _) => [];
 }

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/auth/auth_provider.dart';
+import '../../../core/ui/loader.dart';
 import '../../../core/ui/messages.dart';
 import '../../../core/ui/theme_extensions.dart';
 import '../../../services/user/user_service.dart';
 
-class HomeDrawer extends StatelessWidget {
-  final nameVN = ValueNotifier<String>('');
+class HomeDrawer extends StatefulWidget {
+  const HomeDrawer({super.key});
 
-  HomeDrawer({Key? key}) : super(key: key);
+  @override
+  State<HomeDrawer> createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  final _nameVN = ValueNotifier<String>('');
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +54,9 @@ class HomeDrawer extends StatelessWidget {
             title: const Text('Alterar nome'),
             onTap: () => showDialog(
               context: context,
-              builder: (_) => AlertDialog(
+              builder: (context) => AlertDialog(
                 content: TextField(
-                  onChanged: (value) => nameVN.value = value,
+                  onChanged: (value) => _nameVN.value = value,
                 ),
                 title: const Text('Alterar nome'),
                 actions: [
@@ -63,22 +68,7 @@ class HomeDrawer extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () async {
-                      final nameValue = nameVN.value;
-                      if (nameValue.isEmpty) {
-                        Messages.of(context)
-                            .showError(message: 'Preencha um nome!');
-                      } else {
-                        Loader.show(context);
-
-                        await context
-                            .read<UserService>()
-                            .updateDisplayName(name: nameValue);
-                        Loader.hide();
-
-                        Navigator.of(context).pop();
-                      }
-                    },
+                    onPressed: () async => await _onPressedChangeName(context),
                     child: const Text('Alterar'),
                   ),
                 ],
@@ -92,5 +82,23 @@ class HomeDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _onPressedChangeName(BuildContext context) async {
+    final nameValue = _nameVN.value;
+    if (nameValue.isEmpty) {
+      Messages.showError(message: 'Preencha um nome!');
+    } else {
+      Loader.show();
+
+      await context.read<UserService>().updateDisplayName(name: nameValue);
+      Loader.hide();
+
+      if (!mounted) {
+        return;
+      }
+
+      Navigator.of(context).pop();
+    }
   }
 }
