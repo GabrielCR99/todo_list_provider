@@ -14,7 +14,7 @@ class HomeHeader extends StatelessWidget {
       child: Selector<AuthProvider, String>(
         selector: (_, authProvider) =>
             authProvider.user?.displayName ?? 'Não informado',
-        builder: (context, value, child) => Text(
+        builder: (context, value, _) => Text(
           'E aí, $value!',
           style: context.textTheme.headline5
               ?.copyWith(fontWeight: FontWeight.bold),

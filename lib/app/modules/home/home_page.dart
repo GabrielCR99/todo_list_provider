@@ -64,30 +64,28 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const HomeDrawer(),
       body: LayoutBuilder(
-        builder: (_, constraints) {
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
-                minWidth: constraints.maxWidth,
-              ),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                child: IntrinsicHeight(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      HomeHeader(),
-                      HomeFilters(),
-                      HomeWeekFilter(),
-                      HomeTasks(),
-                    ],
-                  ),
+        builder: (_, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
+              minWidth: constraints.maxWidth,
+            ),
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: IntrinsicHeight(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    HomeHeader(),
+                    HomeFilters(),
+                    HomeWeekFilter(),
+                    HomeTasks(),
+                  ],
                 ),
               ),
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

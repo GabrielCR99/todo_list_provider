@@ -88,6 +88,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   }
 
   void _onPressedSaveTask() {
+    FocusScope.of(context).unfocus();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
       widget._controller.save(_descriptionEC.text);

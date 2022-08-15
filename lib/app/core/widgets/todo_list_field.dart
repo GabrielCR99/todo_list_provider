@@ -10,6 +10,7 @@ class TodoListField extends StatefulWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
   final FocusNode? focusNode;
+  final TextInputType keyboardType;
 
   TodoListField({
     required this.label,
@@ -18,6 +19,7 @@ class TodoListField extends StatefulWidget {
     this.suffixIconButton,
     this.validator,
     this.focusNode,
+    this.keyboardType = TextInputType.text,
     super.key,
   }) : _obscureTextVN = ValueNotifier(obscureText);
 
@@ -28,8 +30,8 @@ class TodoListField extends StatefulWidget {
 class _TodoListFieldState extends State<TodoListField> {
   @override
   void dispose() {
-    super.dispose();
     widget.controller?.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,6 +39,7 @@ class _TodoListFieldState extends State<TodoListField> {
     return ValueListenableBuilder<bool>(
       valueListenable: widget._obscureTextVN,
       builder: (_, obscureTextValue, __) => TextFormField(
+        keyboardType: widget.keyboardType,
         focusNode: widget.focusNode,
         controller: widget.controller,
         validator: widget.validator,

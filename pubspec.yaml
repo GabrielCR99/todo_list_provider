@@ -10,10 +10,9 @@ environment:
 
 dependencies:
   asuka: ^2.0.1
-  cupertino_icons: ^1.0.5
   date_picker_timeline: ^1.2.3
-  firebase_auth: ^3.6.2
-  firebase_core: ^1.20.0
+  firebase_auth: ^3.6.3
+  firebase_core: ^1.20.1
   flutter:
     sdk: flutter
   flutter_localizations:

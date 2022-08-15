@@ -90,3 +90,8 @@ dart_code_metrics:
     - binary-expression-operand-order
     - newline-before-return
     - double-literal-format
+    - prefer-correct-edge-insets-constructor
+    - avoid-shrink-wrap-in-lists
+    - prefer-enums-by-name
+    - prefer-single-widget-per-file:
+        ignore-private-widgets: true

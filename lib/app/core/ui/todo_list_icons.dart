@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class TodoListIcons {
-  TodoListIcons._();
+  const TodoListIcons._();
 
   static const _kFontFam = 'TodoListIcons';
 

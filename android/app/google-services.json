@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "328206024183-n7g6m7j7omdi57f7o58ivblq0nn722b8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.roveri.todo_list_provider",
+            "certificate_hash": "eef401cc3c79d74f1d2085e693c6e8acc4aa84d8"
+          }
+        },
+        {
           "client_id": "328206024183-nh9nfu41msbejk164j9d7br6gjlh34bn.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -30,18 +30,20 @@ class UserRepositoryImpl implements UserRepository {
         final loginTypes = await _auth.fetchSignInMethodsForEmail(email);
         if (loginTypes.contains('password')) {
           Error.throwWithStackTrace(
-            AuthException(message: 'E-mail já utilizado!'),
+            const AuthException(message: 'E-mail já utilizado!'),
             s,
           );
         } else {
           Error.throwWithStackTrace(
-            AuthException(message: 'Utilize sua conta Google para entrar.'),
+            const AuthException(
+              message: 'Utilize sua conta Google para entrar.',
+            ),
             s,
           );
         }
       } else {
         Error.throwWithStackTrace(
-          AuthException(message: 'Erro ao cadastrar usuário'),
+          const AuthException(message: 'Erro ao cadastrar usuário'),
           s,
         );
       }
@@ -78,13 +80,13 @@ class UserRepositoryImpl implements UserRepository {
       if (loginTypes.contains('password')) {
         await _auth.sendPasswordResetEmail(email: email);
       } else if (loginTypes.contains('Google')) {
-        throw AuthException(message: 'Cadastro realizado pelo Google!');
+        throw const AuthException(message: 'Cadastro realizado pelo Google!');
       } else {
-        throw AuthException(message: 'E-mail não cadastrado!');
+        throw const AuthException(message: 'E-mail não cadastrado!');
       }
     } on PlatformException catch (_, s) {
       Error.throwWithStackTrace(
-        AuthException(message: 'Erro ao resetar senha'),
+        const AuthException(message: 'Erro ao resetar senha'),
         s,
       );
     }
@@ -100,7 +102,7 @@ class UserRepositoryImpl implements UserRepository {
             await _auth.fetchSignInMethodsForEmail(googleUser.email);
 
         if (loginTypes.contains('password')) {
-          throw AuthException(
+          throw const AuthException(
             message: 'Você utilizou o email para cadastro no app.',
           );
         } else {

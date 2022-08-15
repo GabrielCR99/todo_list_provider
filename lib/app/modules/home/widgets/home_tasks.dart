@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../core/ui/theme_extensions.dart';
 import '../../../models/task_model.dart';
 import '../home_controller.dart';
 import 'task.dart';
-
-import '../../../core/ui/theme_extensions.dart';
 
 class HomeTasks extends StatelessWidget {
   const HomeTasks({super.key});
@@ -19,8 +19,7 @@ class HomeTasks extends StatelessWidget {
           Selector<HomeController, String>(
             builder: (context, value, _) =>
                 Text('TASK\'S $value', style: context.titleStyle),
-            selector: (context, controller) =>
-                controller.selectedFilter.description,
+            selector: (_, controller) => controller.selectedFilter.description,
           ),
           Column(
             children: context
