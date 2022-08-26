@@ -34,7 +34,7 @@ class DefaultListenerNotifier {
     });
   }
 
-  void dispose() => changeNotifier.removeListener(() => Never);
+  void dispose() => changeNotifier.removeListener(() => this);
 }
 
 typedef SuccesVoidCallback = void Function(

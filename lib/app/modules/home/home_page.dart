@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: context.primaryColor,
         child: const Icon(Icons.add),
       ),
-      drawer: const HomeDrawer(),
+      drawer: HomeDrawer(),
       body: LayoutBuilder(
         builder: (_, constraints) => SingleChildScrollView(
           child: ConstrainedBox(

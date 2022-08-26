@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       },
+      successCallback: (_, listener) => listener.dispose(),
     );
   }
 
@@ -53,9 +54,9 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const TodoListLogo(),
                     _LoginForm(),
-                    const SizedBox(height: 20),
+                    // const SizedBox(height: 20),
                     Expanded(
-                      child: Container(
+                      child: DecoratedBox(
                         decoration: BoxDecoration(
                           color: const Color(0xFFF0F3F7),
                           border: Border(
@@ -86,8 +87,10 @@ class _LoginPageState extends State<LoginPage> {
                                 const Text('Não tem conta?'),
                                 TextButton(
                                   child: const Text('Cadastre-se!'),
-                                  onPressed: () =>
-                                      AppNavigator.to.pushNamed('/register'),
+                                  onPressed: () => AppNavigator.to.pushNamed(
+                                    '/register',
+                                    arguments: 'Hello World!',
+                                  ),
                                 ),
                               ],
                             ),

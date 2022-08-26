@@ -39,7 +39,7 @@ class TaskRepositoryImpl implements TaskRepository {
       [startFilter.toIso8601String(), endFilter.toIso8601String()],
     );
 
-    return result.map((e) => TaskModel.fromMap(e)).toList();
+    return result.map(TaskModel.fromMap).toList();
   }
 
   @override

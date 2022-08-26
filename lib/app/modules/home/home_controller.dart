@@ -91,7 +91,7 @@ class HomeController extends DefaultChangeNotifier {
     notifyListeners();
   }
 
-  void filterByDay(DateTime date) async {
+  void filterByDay(DateTime date) {
     selectedDay = date;
     filteredTasks =
         allTasks.where((task) => task.dateTime == selectedDay).toList();

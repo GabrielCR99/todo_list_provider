@@ -57,7 +57,7 @@ class _LoginFormState extends State<_LoginForm> {
                     ),
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(10),
                     child: Text('Login'),
                   ),
                 ),

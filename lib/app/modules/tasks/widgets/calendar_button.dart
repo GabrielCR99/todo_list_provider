@@ -14,7 +14,7 @@ class CalendarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(30)),
-      onTap: () async => await _showDatePicker(context),
+      onTap: () async => _showDatePicker(context),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
@@ -45,7 +45,7 @@ class CalendarButton extends StatelessWidget {
   }
 
   Future<void> _showDatePicker(BuildContext context) async {
-    var controller = context.read<CreateTaskController>();
+    final controller = context.read<CreateTaskController>();
 
     final lastDate = DateTime.now().add(const Duration(days: 10 * 365));
     final selectedDate = await showDatePicker(

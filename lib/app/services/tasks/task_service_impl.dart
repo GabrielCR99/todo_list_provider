@@ -35,7 +35,7 @@ class TaskServiceImpl implements TaskService {
 
     if (startFilter.weekday != DateTime.monday) {
       startFilter =
-          startFilter.subtract(Duration(days: (startFilter.weekday - 1)));
+          startFilter.subtract(Duration(days: startFilter.weekday - 1));
     }
 
     endFilter = startFilter.add(const Duration(days: 7));

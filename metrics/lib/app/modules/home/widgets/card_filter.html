@@ -62,7 +62,7 @@ class CardFilter extends StatelessWidget {
                 ),
               ),
               duration: const Duration(seconds: 1),
-              tween: Tween(begin: 0.0, end: _getFinishedPercentage()),
+              tween: Tween(begin: 0, end: _getFinishedPercentage()),
             ),
           ],
         ),
@@ -82,7 +82,7 @@ class CardFilter extends StatelessWidget {
     final doneTotal = totalTasksModel?.totalTasksDones ?? 0.1;
 
     if (total == 0) {
-      return 0.0;
+      return 0;
     }
 
     final percentage = doneTotal * 100 / total;

@@ -7,14 +7,9 @@ import '../../../core/ui/messages.dart';
 import '../../../core/ui/theme_extensions.dart';
 import '../../../services/user/user_service.dart';
 
-class HomeDrawer extends StatefulWidget {
-  const HomeDrawer({super.key});
+class HomeDrawer extends StatelessWidget {
+  HomeDrawer({super.key});
 
-  @override
-  State<HomeDrawer> createState() => _HomeDrawerState();
-}
-
-class _HomeDrawerState extends State<HomeDrawer> {
   final _nameVN = ValueNotifier<String>('');
 
   @override
@@ -23,9 +18,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
       child: ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(
-              color: context.primaryColor.withAlpha(70),
-            ),
+            decoration:
+                BoxDecoration(color: context.primaryColor.withAlpha(70)),
             child: Row(
               children: [
                 Selector<AuthProvider, String>(
@@ -39,7 +33,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Selector<AuthProvider, String>(
                       selector: (_, authProvider) =>
                           authProvider.user?.displayName ?? 'Não informado',
@@ -55,9 +49,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             onTap: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                content: TextField(
-                  onChanged: (value) => _nameVN.value = value,
-                ),
+                content: TextField(onChanged: (value) => _nameVN.value = value),
                 title: const Text('Alterar nome'),
                 actions: [
                   TextButton(
@@ -68,7 +60,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () async => await _onPressedChangeName(context),
+                    onPressed: () async => _onPressedChangeName(context),
                     child: const Text('Alterar'),
                   ),
                 ],
@@ -85,6 +77,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   Future<void> _onPressedChangeName(BuildContext context) async {
+    final navigator = Navigator.of(context);
+
     final nameValue = _nameVN.value;
     if (nameValue.isEmpty) {
       Messages.showError(message: 'Preencha um nome!');
@@ -94,11 +88,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       await context.read<UserService>().updateDisplayName(name: nameValue);
       Loader.hide();
 
-      if (!mounted) {
-        return;
-      }
-
-      Navigator.of(context).pop();
+      navigator.pop();
     }
   }
 }

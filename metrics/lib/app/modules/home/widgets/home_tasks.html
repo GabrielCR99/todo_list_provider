@@ -18,7 +18,7 @@ class HomeTasks extends StatelessWidget {
           const SizedBox(height: 20),
           Selector&lt;HomeController, String&gt;(
             builder: (context, value, _) =&gt;
-                Text('TASK\'S $value', style: context.titleStyle),
+                Text("TASK'S $value", style: context.titleStyle),
             selector: (_, controller) =&gt; controller.selectedFilter.description,
           ),
           Column(

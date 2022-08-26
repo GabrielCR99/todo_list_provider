@@ -11,9 +11,9 @@ class Loader {
     _entry ??= OverlayEntry(
       builder: (_) =&gt; WillPopScope(
         onWillPop: () async =&gt; false,
-        child: Container(
+        child: const ColoredBox(
           color: Colors.black54,
-          child: const Center(child: CircularProgressIndicator.adaptive()),
+          child: Center(child: CircularProgressIndicator.adaptive()),
         ),
       ),
     );
