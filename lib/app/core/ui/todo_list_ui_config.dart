@@ -9,7 +9,9 @@ class TodoListUiConfig {
         primaryColor: const Color(0xFF5C77CE),
         primaryColorLight: const Color(0xFFABC8F7),
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(primary: const Color(0xFF5C77CE)),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF5C77CE),
+          ),
         ),
       );
 }

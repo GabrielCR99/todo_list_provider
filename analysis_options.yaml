@@ -5,12 +5,12 @@ analyzer:
     - dart_code_metrics
 
   exclude:
-    [
-      lib/generated_plugin_registrant.dart,
-      lib/app/modules/**/*.g.dart,
-      lib/app/models/*.g.dart,
-      lib/firebase_options.dart,
-    ]
+    - build/**
+    - assets/**
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/generated_plugin_registrant.dart"
+    - "lib/**/firebase_options.dart"
 
   errors:
     prefer_relative_imports: warning
@@ -30,7 +30,7 @@ linter:
     - always_require_non_null_named_parameters
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
-    - avoid_classes_with_only_static_members
+    - avoid_classes_with_only_static_members: false
     - avoid_empty_else
     - avoid_escaping_inner_quotes
     - avoid_function_literals_in_foreach_calls
@@ -151,12 +151,12 @@ dart_code_metrics:
 
   metrics:
     cyclomatic-complexity: 20
-    maximum-nesting-level: 5
-    number-of-parameters: 6
-    source-lines-of-code: 50
     halstead-volume: 150
     lines-of-code: 50
+    maximum-nesting-level: 5
     number-of-methods: 5
+    number-of-parameters: 6
+    source-lines-of-code: 50
     weight-of-class: 0.33
     technical-debt:
       threshold: 1
@@ -172,32 +172,37 @@ dart_code_metrics:
     - test/**
 
   rules:
+    - always-remove-listener
+    - avoid-border-all
+    - avoid-cascade-after-if-null
     - avoid-collection-methods-with-unrelated-types
     - avoid-global-state
     - avoid-nested-conditional-expressions
+    - avoid-redundant-async
+    - avoid-returning-widgets
+    - avoid-shrink-wrap-in-lists
     - avoid-throw-in-catch-block
     - avoid-unnecessary-type-casts
     - avoid-unused-parameters
-    - avoid-border-all
-    - avoid-returning-widgets
+    - avoid-wrapping-in-padding
+    - binary-expression-operand-order
+    - check-for-equals-in-render-object-setters
+    - consistent-update-render-object
+    - double-literal-format
+    - newline-before-return
     - no-boolean-literal-compare
     - no-empty-block
     - no-equal-then-else
+    - prefer-async-await
     - prefer-conditional-expressions
-    - prefer-trailing-comma
-    - prefer-first
     - prefer-conditional-expressions
     - prefer-const-border-radius
-    - prefer-immediate-return
-    - prefer-async-await
-    - prefer-extracting-callbacks
-    - prefer-async-await
-    - always-remove-listener
-    - binary-expression-operand-order
-    - newline-before-return
-    - double-literal-format
     - prefer-correct-edge-insets-constructor
-    - avoid-shrink-wrap-in-lists
     - prefer-enums-by-name
+    - prefer-extracting-callbacks
+    - prefer-first
+    - prefer-immediate-return
+    - prefer-iterable-of
     - prefer-single-widget-per-file:
         ignore-private-widgets: true
+    - prefer-trailing-comma

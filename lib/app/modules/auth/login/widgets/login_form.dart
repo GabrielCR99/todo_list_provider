@@ -51,9 +51,7 @@ class _LoginFormState extends State<_LoginForm> {
                   onPressed: _onPressedLogin,
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
                     ),
                   ),
                   child: const Padding(
@@ -82,9 +80,7 @@ class _LoginFormState extends State<_LoginForm> {
 
   void _onPressedForgotPassword() {
     if (_emailEC.text.isNotEmpty) {
-      context.read<LoginController>().forgotPassword(
-            email: _emailEC.text,
-          );
+      context.read<LoginController>().forgotPassword(email: _emailEC.text);
     } else {
       _emailFocus.requestFocus();
       Messages.showError(

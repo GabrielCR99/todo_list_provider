@@ -58,7 +58,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                   ),
                 ),
                 child: const Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(10),
                   child: Text('Salvar'),
                 ),
               ),

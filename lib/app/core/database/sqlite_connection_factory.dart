@@ -61,7 +61,7 @@ class SqliteConnectionFactory {
       migration.create(batch);
     }
 
-    batch.commit();
+    await batch.commit();
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int _) async {
@@ -73,7 +73,7 @@ class SqliteConnectionFactory {
       migration.upgrade(batch);
     }
 
-    batch.commit();
+    await batch.commit();
   }
 
   Future<void> _onDowngrade(Database _, int __, int ___) async => Never;

@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const TodoListLogo(),
                     _LoginForm(),
-                    // const SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Expanded(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -87,10 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                                 const Text('Não tem conta?'),
                                 TextButton(
                                   child: const Text('Cadastre-se!'),
-                                  onPressed: () => AppNavigator.to.pushNamed(
-                                    '/register',
-                                    arguments: 'Hello World!',
-                                  ),
+                                  onPressed: () =>
+                                      AppNavigator.to.pushNamed('/register'),
                                 ),
                               ],
                             ),

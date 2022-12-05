@@ -13,7 +13,7 @@ class TaskServiceImpl implements TaskService {
   Future<void> createTask({
     required DateTime date,
     required String description,
-  }) async =>
+  }) =>
       _repository.saveTask(date: date, description: description);
 
   @override
