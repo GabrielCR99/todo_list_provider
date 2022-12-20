@@ -8,9 +8,10 @@ import '../home_controller.dart';
 
 class Task extends StatelessWidget {
   final TaskModel model;
-  final dateFormat = DateFormat('dd/MM/y');
 
-  Task({required this.model, super.key});
+  static final dateFormat = DateFormat('dd/MM/y');
+
+  const Task({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,9 @@ class Task extends StatelessWidget {
           contentPadding: const EdgeInsets.all(8),
           title: Text(
             dateFormat.format(model.dateTime),
-            style: const TextStyle(decoration: TextDecoration.lineThrough),
+            style: TextStyle(
+              decoration: model.finished ? TextDecoration.lineThrough : null,
+            ),
           ),
           leading: Checkbox(
             value: model.finished,
