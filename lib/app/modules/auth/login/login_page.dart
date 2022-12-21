@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     const TodoListLogo(),
                     _LoginForm(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     Expanded(
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -81,16 +81,18 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               padding: const EdgeInsets.all(5),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text('Não tem conta?'),
-                                TextButton(
-                                  child: const Text('Cadastre-se!'),
-                                  onPressed: () =>
-                                      AppNavigator.to.pushNamed('/register'),
-                                ),
-                              ],
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text('Não tem conta?'),
+                                  TextButton(
+                                    child: const Text('Cadastre-se!'),
+                                    onPressed: () =>
+                                        AppNavigator.to.pushNamed('/register'),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
