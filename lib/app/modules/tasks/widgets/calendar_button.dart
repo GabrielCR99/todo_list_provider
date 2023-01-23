@@ -14,7 +14,7 @@ class CalendarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(30)),
-      onTap: () async => _showDatePicker(context),
+      onTap: () => _showDatePicker(context),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(

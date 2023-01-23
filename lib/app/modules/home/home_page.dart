@@ -104,8 +104,7 @@ class _HomePageState extends State<HomePage> {
             child: child,
           );
         },
-        pageBuilder: (context, _, __) =>
-            TaskModule().getPage(context, path: '/task/create'),
+        pageBuilder: (_, __, ___) => TaskModule().getPage(path: '/task/create'),
       ),
     );
     widget._controller.refreshPage();
