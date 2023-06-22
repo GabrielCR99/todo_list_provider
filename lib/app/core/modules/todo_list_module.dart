@@ -3,11 +3,11 @@ import 'package:provider/single_child_widget.dart';
 
 import 'todo_list_page.dart';
 
-abstract class TodoListModule {
+abstract base class TodoListModule {
   final Map<String, WidgetBuilder> _routes;
   final List<SingleChildWidget>? _bindings;
 
-  TodoListModule({
+  const TodoListModule({
     required Map<String, WidgetBuilder> routes,
     List<SingleChildWidget>? bindings,
   })  : _routes = routes,

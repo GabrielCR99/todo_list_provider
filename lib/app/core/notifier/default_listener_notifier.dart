@@ -2,7 +2,7 @@ import '../ui/loader.dart';
 import '../ui/messages.dart';
 import 'default_change_notifier.dart';
 
-class DefaultListenerNotifier {
+final class DefaultListenerNotifier {
   final DefaultChangeNotifier changeNotifier;
 
   DefaultListenerNotifier({required this.changeNotifier});
@@ -33,8 +33,6 @@ class DefaultListenerNotifier {
       }
     });
   }
-
-  void dispose() => changeNotifier.removeListener(() => this);
 }
 
 typedef SuccesVoidCallback = void Function(

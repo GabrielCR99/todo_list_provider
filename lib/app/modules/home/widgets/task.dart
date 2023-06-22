@@ -15,6 +15,8 @@ class Task extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<HomeController>();
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -27,32 +29,29 @@ class Task extends StatelessWidget {
           motion: const StretchMotion(),
           children: [
             SlidableAction(
+              backgroundColor: const Color(0xFFFE4A49),
+              foregroundColor: Colors.white,
+              onPressed: (_) => controller.deleteTask(task: model),
               icon: Icons.delete,
               spacing: 0,
+              label: 'Deletar',
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(20),
                 bottomRight: Radius.circular(20),
               ),
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              label: 'Deletar',
-              onPressed: (_) =>
-                  context.read<HomeController>().deleteTask(task: model),
             ),
           ],
         ),
         child: ListTile(
-          contentPadding: const EdgeInsets.all(8),
+          leading: Checkbox(
+            value: model.finished,
+            onChanged: (_) => controller.checkOrUncheckTask(task: model),
+          ),
           title: Text(
             dateFormat.format(model.dateTime),
             style: TextStyle(
               decoration: model.finished ? TextDecoration.lineThrough : null,
             ),
-          ),
-          leading: Checkbox(
-            value: model.finished,
-            onChanged: (_) =>
-                context.read<HomeController>().checkOrUncheckTask(task: model),
           ),
           subtitle: Text(
             model.description,
@@ -63,6 +62,7 @@ class Task extends StatelessWidget {
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
+          contentPadding: const EdgeInsets.all(8),
         ),
       ),
     );

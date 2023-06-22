@@ -1,4 +1,4 @@
-class TaskModel {
+final class TaskModel {
   final int id;
   final String description;
   final DateTime dateTime;
@@ -12,9 +12,9 @@ class TaskModel {
   });
 
   factory TaskModel.fromMap(Map<String, dynamic> map) => TaskModel(
-        id: map['id'],
-        description: map['descricao'],
-        dateTime: DateTime.parse(map['data_hora']),
+        id: map['id'] as int,
+        description: map['descricao'] as String,
+        dateTime: DateTime.parse(map['data_hora'] as String),
         finished: map['finalizado'] == 1,
       );
 

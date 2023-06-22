@@ -1,6 +1,6 @@
 import 'package:asuka/asuka.dart';
 
-class Messages {
+sealed class Messages {
   const Messages._();
 
   static void showError({required String message}) =>

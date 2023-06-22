@@ -28,30 +28,30 @@ class _AppWidgetState extends State<AppWidget> {
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(_sqliteAdmin);
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'To Do List Provider',
-      locale: const Locale('pt', 'BR'),
-      supportedLocales: const [Locale('pt', 'BR')],
-      localizationsDelegates: const [
-        ...GlobalMaterialLocalizations.delegates,
-        DefaultCupertinoLocalizations.delegate,
-      ],
-      builder: Asuka.builder,
       navigatorKey: AppNavigator.navigatorKey,
       home: const SplashPage(),
-      theme: TodoListUiConfig.theme,
       routes: {
         ...AuthModule().routes,
         ...HomeModule().routes,
         ...TaskModule().routes,
       },
+      builder: Asuka.builder,
+      title: 'To Do List Provider',
+      theme: TodoListUiConfig.theme,
+      locale: const Locale('pt', 'BR'),
+      localizationsDelegates: const [
+        ...GlobalMaterialLocalizations.delegates,
+        DefaultCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
     );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(_sqliteAdmin);
+    super.dispose();
   }
 }

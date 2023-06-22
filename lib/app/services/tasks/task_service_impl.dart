@@ -3,7 +3,7 @@ import '../../models/week_task_model.dart';
 import '../../repositories/tasks/task_repository.dart';
 import 'task_service.dart';
 
-class TaskServiceImpl implements TaskService {
+final class TaskServiceImpl implements TaskService {
   final TaskRepository _repository;
 
   const TaskServiceImpl({required TaskRepository repository})

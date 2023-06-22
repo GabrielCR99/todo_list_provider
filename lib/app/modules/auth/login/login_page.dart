@@ -33,7 +33,6 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       },
-      successCallback: (_, listener) => listener.dispose(),
     );
   }
 
@@ -45,8 +44,8 @@ class _LoginPageState extends State<LoginPage> {
           builder: (_, constraints) => SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(
-                minHeight: constraints.maxHeight,
                 minWidth: constraints.maxWidth,
+                minHeight: constraints.maxHeight,
               ),
               child: IntrinsicHeight(
                 child: Column(
@@ -61,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                           color: const Color(0xFFF0F3F7),
                           border: Border(
                             top: BorderSide(
-                              width: 2,
                               color: Colors.grey.withAlpha(50),
+                              width: 2,
                             ),
                           ),
                         ),
@@ -71,15 +70,15 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(height: 30),
                             SignInButton(
                               Buttons.Google,
-                              text: 'Continue com o Google',
                               onPressed: () =>
                                   context.read<LoginController>().googleLogin(),
+                              padding: const EdgeInsets.all(5),
                               shape: const OutlineInputBorder(
+                                borderSide: BorderSide.none,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(30)),
-                                borderSide: BorderSide.none,
                               ),
-                              padding: const EdgeInsets.all(5),
+                              text: 'Continue com o Google',
                             ),
                             Expanded(
                               child: Row(
@@ -87,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   const Text('Não tem conta?'),
                                   TextButton(
-                                    child: const Text('Cadastre-se!'),
                                     onPressed: () =>
                                         AppNavigator.to.pushNamed('/register'),
+                                    child: const Text('Cadastre-se!'),
                                   ),
                                 ],
                               ),

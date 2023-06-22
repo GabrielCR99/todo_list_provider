@@ -21,19 +21,19 @@ class _LoginFormState extends State<_LoginForm> {
           children: [
             TodoListField(
               label: 'Email',
-              keyboardType: TextInputType.emailAddress,
-              focusNode: _emailFocus,
               controller: _emailEC,
               validator: Validatorless.multiple([
                 Validatorless.required('E-mail obrigatório!'),
                 Validatorless.email('E-mail inválido!'),
               ]),
+              focusNode: _emailFocus,
+              keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 20),
             TodoListField(
               label: 'Senha',
-              obscureText: true,
               controller: _passwordEC,
+              obscureText: true,
               validator: Validatorless.multiple([
                 Validatorless.required('Senha obrigatória!'),
                 Validatorless.min(6, 'Senha deve conter 6 caracteres'),

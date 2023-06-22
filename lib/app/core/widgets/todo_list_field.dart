@@ -29,44 +29,42 @@ class TodoListField extends StatefulWidget {
 
 class _TodoListFieldState extends State<TodoListField> {
   @override
-  void dispose() {
-    widget.controller?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: widget._obscureTextVN,
       builder: (_, obscureTextValue, __) => TextFormField(
-        keyboardType: widget.keyboardType,
-        focusNode: widget.focusNode,
         controller: widget.controller,
-        validator: widget.validator,
+        focusNode: widget.focusNode,
         decoration: InputDecoration(
+          labelText: widget.label,
+          labelStyle: const TextStyle(color: Colors.black, fontSize: 15),
+          isDense: true,
           suffixIcon: widget.obscureText
               ? IconButton(
                   onPressed: () =>
                       widget._obscureTextVN.value = !obscureTextValue,
-                  icon: Icon(
-                    _getIcon(obscureTextValue),
-                  ),
+                  icon: Icon(_getIcon(obscureTextValue)),
                 )
               : widget.suffixIconButton,
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(30)),
           ),
-          errorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30)),
-            borderSide: BorderSide(color: Colors.red),
-          ),
-          labelText: widget.label,
-          labelStyle: const TextStyle(fontSize: 15, color: Colors.black),
-          isDense: true,
         ),
+        keyboardType: widget.keyboardType,
         obscureText: obscureTextValue,
+        validator: widget.validator,
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    widget.controller?.dispose();
+    super.dispose();
   }
 
   IconData _getIcon(bool show) =>

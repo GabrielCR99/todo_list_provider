@@ -5,6 +5,13 @@ import 'package:synchronized/synchronized.dart';
 import 'sqlite_migration_factory.dart';
 
 class SqliteConnectionFactory {
+  static const _version = 1;
+  static const _databaseName = 'TODO_LIST_PROVIDER';
+
+  final _lock = Lock();
+
+  Database? _db;
+
   static SqliteConnectionFactory? _instance;
 
   factory SqliteConnectionFactory() {
@@ -12,14 +19,8 @@ class SqliteConnectionFactory {
 
     return _instance!;
   }
+
   SqliteConnectionFactory._();
-
-  static const _version = 1;
-  static const _databaseName = 'TODO_LIST_PROVIDER';
-
-  final _lock = Lock();
-
-  Database? _db;
 
   Future<Database> openConnection() async {
     final databasePath = await getDatabasesPath();

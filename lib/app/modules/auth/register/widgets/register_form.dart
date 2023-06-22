@@ -14,7 +14,7 @@ class _RegisterFormState extends State<_RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
       child: Form(
         key: _formKey,
         child: Column(
@@ -30,8 +30,8 @@ class _RegisterFormState extends State<_RegisterForm> {
             const SizedBox(height: 20),
             TodoListField(
               label: 'Senha',
-              obscureText: true,
               controller: _passwordEC,
+              obscureText: true,
               validator: Validatorless.multiple([
                 Validatorless.required('Senha obrigatória!'),
                 Validatorless.min(6, 'Senha deve conter 6 caracteres'),
@@ -40,8 +40,8 @@ class _RegisterFormState extends State<_RegisterForm> {
             const SizedBox(height: 20),
             TodoListField(
               label: 'Confirmar senha',
-              obscureText: true,
               controller: _confirmPasswordEC,
+              obscureText: true,
               validator: Validatorless.compare(
                 _passwordEC,
                 'Senhas devem ser iguais!',

@@ -1,4 +1,4 @@
-class TotalTasksModel {
+final class TotalTasksModel {
   final int totalTasks;
   final int totalTasksDones;
 

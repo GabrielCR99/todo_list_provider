@@ -26,14 +26,14 @@ class CardFilter extends StatelessWidget {
       onTap: () => context.read<HomeController>().findTasks(filter: taskFilter),
       borderRadius: const BorderRadius.all(Radius.circular(30)),
       child: Container(
-        constraints: const BoxConstraints(minHeight: 120, maxWidth: 150),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: selected ? context.primaryColor : Colors.white,
           border: Border.all(color: Colors.grey.withOpacity(0.8)),
           borderRadius: const BorderRadius.all(Radius.circular(30)),
         ),
+        constraints: const BoxConstraints(maxWidth: 150, minHeight: 120),
         margin: const EdgeInsets.only(right: 10),
-        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,22 +47,22 @@ class CardFilter extends StatelessWidget {
             Text(
               label,
               style: TextStyle(
+                color: selected ? Colors.white : Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: selected ? Colors.white : Colors.black,
               ),
             ),
             TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: _getFinishedPercentage()),
+              duration: const Duration(seconds: 1),
               builder: (_, value, __) => LinearProgressIndicator(
+                value: value,
                 backgroundColor:
                     selected ? context.primaryColorLight : Colors.grey.shade300,
-                value: value,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   selected ? Colors.white : context.primaryColor,
                 ),
               ),
-              duration: const Duration(seconds: 1),
-              tween: Tween(begin: 0, end: _getFinishedPercentage()),
             ),
           ],
         ),

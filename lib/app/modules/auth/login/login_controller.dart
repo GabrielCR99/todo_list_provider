@@ -2,9 +2,9 @@ import '../../../core/notifier/default_change_notifier.dart';
 import '../../../exception/auth_exception.dart';
 import '../../../services/user/user_service.dart';
 
-class LoginController extends DefaultChangeNotifier {
-  final UserService _service;
+final class LoginController extends DefaultChangeNotifier {
   String? infoMessage;
+  final UserService _service;
 
   LoginController({required UserService service}) : _service = service;
 
@@ -20,10 +20,10 @@ class LoginController extends DefaultChangeNotifier {
       if (user != null) {
         success();
       } else {
-        setError('Usuário ou senha inválidos!');
+        error = 'Usuário ou senha inválidos!';
       }
     } on AuthException catch (e) {
-      setError(e.message);
+      error = e.message;
     } finally {
       hideLoading();
       notifyListeners();
@@ -38,9 +38,9 @@ class LoginController extends DefaultChangeNotifier {
       await _service.forgotPassword(email: email);
       infoMessage = 'Senha enviada para seu email!';
     } on AuthException catch (e) {
-      setError(e.message);
+      error = e.message;
     } on Exception {
-      setError('Erro ao resetar a senha!');
+      error = 'Erro ao resetar a senha!';
     } finally {
       hideLoading();
       notifyListeners();
@@ -58,11 +58,11 @@ class LoginController extends DefaultChangeNotifier {
         success();
       } else {
         _service.logout();
-        setError('Erro ao realizar login pelo google');
+        error = 'Erro ao realizar login pelo google';
       }
     } on AuthException catch (e) {
       _service.logout();
-      setError(e.message);
+      error = e.message;
     } finally {
       hideLoading();
       notifyListeners();

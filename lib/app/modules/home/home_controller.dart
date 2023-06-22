@@ -5,9 +5,7 @@ import '../../models/total_tasks_model.dart';
 import '../../models/week_task_model.dart';
 import '../../services/tasks/task_service.dart';
 
-class HomeController extends DefaultChangeNotifier {
-  final TaskService _service;
-
+final class HomeController extends DefaultChangeNotifier {
   TotalTasksModel? todayTotalTasks;
   TotalTasksModel? tomorrowTotalTasks;
   TotalTasksModel? weekTotalTasks;
@@ -18,6 +16,8 @@ class HomeController extends DefaultChangeNotifier {
   bool showFinishedTasks = false;
 
   TaskFilterEnum selectedFilter = TaskFilterEnum.today;
+
+  final TaskService _service;
 
   HomeController({required TaskService service}) : _service = service;
 
@@ -58,15 +58,12 @@ class HomeController extends DefaultChangeNotifier {
     switch (filter) {
       case TaskFilterEnum.today:
         tasks = await _service.getToday();
-        break;
       case TaskFilterEnum.tomorrow:
         tasks = await _service.getTomorrow();
-        break;
       case TaskFilterEnum.week:
         final weekModel = await _service.getWeek();
         initialDateOfWeek = weekModel.startDate;
         tasks = weekModel.tasks;
-        break;
     }
     filteredTasks = tasks;
     allTasks = tasks;

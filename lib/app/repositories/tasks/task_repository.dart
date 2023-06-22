@@ -1,6 +1,6 @@
 import '../../models/task_model.dart';
 
-abstract class TaskRepository {
+abstract interface class TaskRepository {
   Future<void> saveTask({required DateTime date, required String description});
   Future<List<TaskModel>> findByPeriod({
     required DateTime start,

@@ -25,38 +25,23 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   @override
   void initState() {
     super.initState();
-    DefaultListenerNotifier(changeNotifier: widget._controller).listener(
-      successCallback: (_, listener) {
-        listener.dispose();
-        Navigator.pop(context);
-      },
-    );
+    DefaultListenerNotifier(changeNotifier: widget._controller)
+        .listener(successCallback: (_, listener) => Navigator.pop(context));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: context.primaryColor,
-        onPressed: _onPressedSaveTask,
-        label: const Text(
-          'Salvar Task',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             onPressed: () => Navigator.of(context).pop(),
-            icon: const Icon(
-              Icons.close,
-              color: Colors.black,
-            ),
+            icon: const Icon(Icons.close, color: Colors.black),
           ),
         ],
+        elevation: 0,
+        backgroundColor: Colors.transparent,
       ),
       body: Form(
         key: _formKey,
@@ -82,6 +67,14 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
               CalendarButton(),
             ],
           ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: context.primaryColor,
+        onPressed: _onPressedSaveTask,
+        label: const Text(
+          'Salvar Task',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
     );

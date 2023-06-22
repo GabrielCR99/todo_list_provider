@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-abstract class AppNavigator {
+sealed class AppNavigator {
+  static final navigatorKey = GlobalKey<NavigatorState>();
+
   const AppNavigator._();
 
-  static final navigatorKey = GlobalKey<NavigatorState>();
   static NavigatorState get to => navigatorKey.currentState!;
 }

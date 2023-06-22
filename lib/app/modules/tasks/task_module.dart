@@ -8,7 +8,7 @@ import '../../services/tasks/task_service_impl.dart';
 import 'create_task_controller.dart';
 import 'create_task_page.dart';
 
-class TaskModule extends TodoListModule {
+final class TaskModule extends TodoListModule {
   TaskModule()
       : super(
           routes: {

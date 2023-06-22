@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DefaultChangeNotifier extends ChangeNotifier {
-  String? _error;
+abstract base class DefaultChangeNotifier extends ChangeNotifier {
+  String? error;
   bool _loading = false;
   bool _success = false;
 
   bool get loading => _loading;
-  bool get hasError => _error != null;
+  bool get hasError => error != null;
   bool get isSuccess => _success;
-  String? get error => _error;
 
   void showLoading() => _loading = true;
 
@@ -16,15 +15,13 @@ class DefaultChangeNotifier extends ChangeNotifier {
 
   void success() => _success = true;
 
-  void setError(String? error) => _error = error;
-
   void showLoadingAndResetState() {
     showLoading();
     resetState();
   }
 
   void resetState() {
-    setError(null);
+    error = null;
     _success = false;
   }
 }

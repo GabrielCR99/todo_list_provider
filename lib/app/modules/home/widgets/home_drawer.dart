@@ -9,7 +9,7 @@ import '../../../services/user/user_service.dart';
 class HomeDrawer extends StatelessWidget {
   HomeDrawer({super.key});
 
-  final _nameVN = ValueNotifier<String>('');
+  final _nameVN = ValueNotifier('');
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +22,21 @@ class HomeDrawer extends StatelessWidget {
             child: Row(
               children: [
                 Selector<AuthProvider, String>(
-                  selector: (_, authProvider) =>
-                      authProvider.user?.photoURL ??
-                      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png',
                   builder: (_, value, __) => CircleAvatar(
                     backgroundImage: NetworkImage(value),
                     radius: 30,
                   ),
+                  selector: (_, authProvider) =>
+                      authProvider.user?.photoURL ??
+                      'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png',
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Selector<AuthProvider, String>(
+                      builder: (_, value, __) => Text(value),
                       selector: (_, authProvider) =>
                           authProvider.user?.displayName ?? 'Não informado',
-                      builder: (_, value, __) => Text(value),
                     ),
                   ),
                 ),
@@ -45,17 +45,16 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Alterar nome'),
-            onTap: () => showDialog(
+            onTap: () => showDialog<void>(
               context: context,
               builder: (_) => ScaffoldMessenger(
                 child: Builder(
                   builder: (context) => Scaffold(
-                    backgroundColor: Colors.transparent,
                     body: AlertDialog(
+                      title: const Text('Alterar nome'),
                       content: TextField(
                         onChanged: (value) => _nameVN.value = value,
                       ),
-                      title: const Text('Alterar nome'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(),
@@ -70,6 +69,7 @@ class HomeDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
+                    backgroundColor: Colors.transparent,
                   ),
                 ),
               ),
@@ -91,29 +91,20 @@ class HomeDrawer extends StatelessWidget {
     final nameValue = _nameVN.value;
     if (nameValue.isEmpty) {
       FocusScope.of(context).unfocus();
-      // * Specific use case of ScaffoldMessenger to show SnackBar because the overlay
-      // * is not the same as the Scaffold, so the SnackBar is behind the AlertDialog.
-      // * To fix this, we create a new ScaffoldMessenger inside showDialog and display it.
+      // * Specific use case of ScaffoldMessenger to show SnackBar because the
+      // * overlay is not the same as the Scaffold, so the SnackBar is behind
+      // * the AlertDialog. To fix this, we create a new ScaffoldMessenger
+      // * inside showDialog and display it.
       scaffoldMessenger.showSnackBar(
         SnackBar(
-          backgroundColor: const Color(0xffFA5456),
-          elevation: 2,
-          behavior: SnackBarBehavior.floating,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
           content: Row(
             children: [
-              const Icon(
-                Icons.report,
-                size: 20,
-                color: Colors.black45,
-              ),
+              const Icon(Icons.report, size: 20, color: Colors.black45),
               const SizedBox(width: 10),
               const Expanded(
                 child: Text(
                   'Preencha um nome!',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
               InkWell(
@@ -122,6 +113,12 @@ class HomeDrawer extends StatelessWidget {
               ),
             ],
           ),
+          backgroundColor: const Color(0xffFA5456),
+          elevation: 2,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+          behavior: SnackBarBehavior.floating,
         ),
       );
     } else {

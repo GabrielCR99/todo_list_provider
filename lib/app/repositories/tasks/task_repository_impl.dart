@@ -2,7 +2,7 @@ import '../../core/database/sqlite_connection_factory.dart';
 import '../../models/task_model.dart';
 import 'task_repository.dart';
 
-class TaskRepositoryImpl implements TaskRepository {
+final class TaskRepositoryImpl implements TaskRepository {
   final SqliteConnectionFactory _connection;
 
   const TaskRepositoryImpl({required SqliteConnectionFactory connection})
@@ -32,7 +32,8 @@ class TaskRepositoryImpl implements TaskRepository {
 
     final conn = await _connection.openConnection();
     final result = await conn.rawQuery(
-      ''' SELECT * 
+      '''
+ SELECT * 
       from todo
        WHERE data_hora BETWEEN ? AND ? 
        ORDER BY data_hora ''',
@@ -47,10 +48,7 @@ class TaskRepositoryImpl implements TaskRepository {
     final conn = await _connection.openConnection();
     final finished = task.finished ? 1 : 0;
     await conn.rawUpdate(
-      ''' 
-    UPDATE todo 
-    SET finalizado = ? 
-    WHERE id = ? ''',
+      'UPDATE todo SET finalizado = ? WHERE id = ?',
       [finished, task.id],
     );
   }
@@ -58,11 +56,6 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<void> deleteTaskById({required int id}) async {
     final conn = await _connection.openConnection();
-    await conn.rawDelete(
-      ''' 
-        DELETE FROM todo 
-        WHERE id = ? ''',
-      [id],
-    );
+    await conn.rawDelete('DELETE FROM todo WHERE id = ? ', [id]);
   }
 }

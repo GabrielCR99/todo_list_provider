@@ -1,11 +1,11 @@
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 
-class Loader {
-  const Loader._();
-
+sealed class Loader {
   static OverlayEntry? _entry;
   static bool _open = false;
+
+  const Loader._();
 
   static void show() {
     _entry ??= OverlayEntry(

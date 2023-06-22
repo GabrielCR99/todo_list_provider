@@ -13,13 +13,13 @@ class CalendarButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      borderRadius: const BorderRadius.all(Radius.circular(30)),
       onTap: () => _showDatePicker(context),
+      borderRadius: const BorderRadius.all(Radius.circular(30)),
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(30)),
           border: Border.fromBorderSide(BorderSide(color: Colors.grey)),
+          borderRadius: BorderRadius.all(Radius.circular(30)),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -27,16 +27,13 @@ class CalendarButton extends StatelessWidget {
             const Icon(Icons.today, color: Colors.grey),
             const SizedBox(width: 10),
             Selector<CreateTaskController, DateTime?>(
-              selector: (_, controller) => controller.selectedDate,
               builder: (_, selectedDate, __) => selectedDate != null
                   ? Text(
                       _dateFormat.format(selectedDate),
                       style: context.titleStyle,
                     )
-                  : Text(
-                      'SELECIONE UMA DATA',
-                      style: context.titleStyle,
-                    ),
+                  : Text('SELECIONE UMA DATA', style: context.titleStyle),
+              selector: (_, controller) => controller.selectedDate,
             ),
           ],
         ),

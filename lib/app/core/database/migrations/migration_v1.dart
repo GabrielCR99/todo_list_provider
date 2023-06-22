@@ -2,7 +2,7 @@ import 'package:sqflite/sqflite.dart';
 
 import 'migration.dart';
 
-class MigrationV1 implements Migration {
+final class MigrationV1 implements Migration {
   @override
   void create(Batch batch) {
     batch.execute(

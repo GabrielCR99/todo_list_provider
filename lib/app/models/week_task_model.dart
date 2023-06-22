@@ -1,6 +1,6 @@
 import 'task_model.dart';
 
-class WeekTaskModel {
+final class WeekTaskModel {
   final DateTime startDate;
   final DateTime endDate;
   final List<TaskModel> tasks;

@@ -22,36 +22,19 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: context.read<RegisterController>())
-        .listener(successCallback: (_, listener) => listener.dispose());
+        .listener();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'To Do List',
-              style: TextStyle(fontSize: 10, color: context.primaryColor),
-            ),
-            Text(
-              'Cadastro',
-              style: TextStyle(fontSize: 15, color: context.primaryColor),
-            ),
-          ],
-        ),
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: ClipOval(
             child: Container(
-              color: context.primaryColor.withAlpha(20),
               padding: const EdgeInsets.all(8),
+              color: context.primaryColor.withAlpha(20),
               child: Icon(
                 Icons.arrow_back_ios_outlined,
                 size: 20,
@@ -60,17 +43,36 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
+        automaticallyImplyLeading: false,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'To Do List',
+              style: TextStyle(color: context.primaryColor, fontSize: 10),
+            ),
+            Text(
+              'Cadastro',
+              style: TextStyle(color: context.primaryColor, fontSize: 15),
+            ),
+          ],
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
       ),
       body: ListView(
         children: [
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.5,
-            child:
-                const FittedBox(fit: BoxFit.fitHeight, child: TodoListLogo()),
+            child: const FittedBox(
+              fit: BoxFit.fitHeight,
+              child: TodoListLogo(),
+            ),
           ),
           _RegisterForm(),
         ],
       ),
+      backgroundColor: Colors.white,
     );
   }
 }

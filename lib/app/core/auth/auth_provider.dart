@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart';
 import '../../services/user/user_service.dart';
 import '../database/sqlite_connection_factory.dart';
 import '../navigator/app_navigator.dart';
+import '../ui/loader.dart';
 
-class AuthProvider extends ChangeNotifier {
+final class AuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth;
   final UserService _service;
   final SqliteConnectionFactory _connection;
@@ -19,9 +20,11 @@ class AuthProvider extends ChangeNotifier {
         _connection = connection;
 
   Future<void> logout() async {
+    Loader.show();
     final conn = await _connection.openConnection();
     await conn.rawDelete('''DELETE FROM todo ''');
     await _service.logout();
+    Loader.hide();
   }
 
   User? get user => _auth.currentUser;

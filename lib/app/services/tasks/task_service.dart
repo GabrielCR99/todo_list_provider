@@ -1,7 +1,7 @@
 import '../../models/task_model.dart';
 import '../../models/week_task_model.dart';
 
-abstract class TaskService {
+abstract interface class TaskService {
   Future<void> createTask({
     required DateTime date,
     required String description,
