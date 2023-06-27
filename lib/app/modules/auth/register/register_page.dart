@@ -63,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
       body: ListView(
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.width * 0.5,
+            height: MediaQuery.sizeOf(context).width * 0.5,
             child: const FittedBox(
               fit: BoxFit.fitHeight,
               child: TodoListLogo(),
