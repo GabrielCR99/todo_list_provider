@@ -6,7 +6,7 @@ import '../../../core/ui/theme_extensions.dart';
 import '../../../models/task_filter_enum.dart';
 import '../home_controller.dart';
 
-class HomeWeekFilter extends StatelessWidget {
+final class HomeWeekFilter extends StatelessWidget {
   const HomeWeekFilter({super.key});
 
   @override

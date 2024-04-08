@@ -7,7 +7,7 @@ import '../../../models/total_tasks_model.dart';
 import '../home_controller.dart';
 import 'card_filter.dart';
 
-class HomeFilters extends StatelessWidget {
+final class HomeFilters extends StatelessWidget {
   const HomeFilters({super.key});
 
   @override
@@ -19,7 +19,6 @@ class HomeFilters extends StatelessWidget {
         const SizedBox(height: 10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
           child: Row(
             children: [
               CardFilter(

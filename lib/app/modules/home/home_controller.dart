@@ -22,13 +22,13 @@ final class HomeController extends DefaultChangeNotifier {
   HomeController({required TaskService service}) : _service = service;
 
   Future<void> loadTotalTasks() async {
-    final allTasks = await Future.wait(
+    final [
+      todayTasks as List<TaskModel>,
+      tomorrow as List<TaskModel>,
+      weekTasks as WeekTaskModel,
+    ] = await Future.wait(
       [_service.getToday(), _service.getTomorrow(), _service.getWeek()],
     );
-
-    final todayTasks = allTasks.first as List<TaskModel>;
-    final tomorrow = allTasks[1] as List<TaskModel>;
-    final weekTasks = allTasks[2] as WeekTaskModel;
 
     todayTotalTasks = TotalTasksModel(
       totalTasks: todayTasks.length,

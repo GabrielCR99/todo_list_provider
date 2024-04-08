@@ -6,7 +6,7 @@ import '../../../models/task_filter_enum.dart';
 import '../../../models/total_tasks_model.dart';
 import '../home_controller.dart';
 
-class CardFilter extends StatelessWidget {
+final class CardFilter extends StatelessWidget {
   final String label;
   final TaskFilterEnum taskFilter;
   final TotalTasksModel? totalTasksModel;

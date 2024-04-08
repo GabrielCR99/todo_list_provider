@@ -10,14 +10,14 @@ import 'register_controller.dart';
 
 part 'widgets/register_form.dart';
 
-class RegisterPage extends StatefulWidget {
+final class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+final class _RegisterPageState extends State<RegisterPage> {
   @override
   void initState() {
     super.initState();

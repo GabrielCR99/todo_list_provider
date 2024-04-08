@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../core/notifier/default_listener_notifier.dart';
@@ -12,7 +14,7 @@ import 'widgets/home_header.dart';
 import 'widgets/home_tasks.dart';
 import 'widgets/home_week_filter.dart';
 
-class HomePage extends StatefulWidget {
+final class HomePage extends StatefulWidget {
   final HomeController _controller;
 
   const HomePage({required HomeController controller, super.key})
@@ -22,12 +24,12 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+final class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: widget._controller).listener();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    scheduleMicrotask(() {
       widget._controller.loadTotalTasks();
       widget._controller.findTasks(filter: TaskFilterEnum.today);
     });

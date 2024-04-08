@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/auth/auth_provider.dart';
+import '../../../core/auth/app_auth_provider.dart';
 import '../../../core/ui/loader.dart';
 import '../../../core/ui/theme_extensions.dart';
 import '../../../services/user/user_service.dart';
@@ -21,7 +21,7 @@ class HomeDrawer extends StatelessWidget {
                 BoxDecoration(color: context.primaryColor.withAlpha(70)),
             child: Row(
               children: [
-                Selector<AuthProvider, String>(
+                Selector<AppAuthProvider, String>(
                   builder: (_, value, __) => CircleAvatar(
                     backgroundImage: NetworkImage(value),
                     radius: 30,
@@ -33,7 +33,7 @@ class HomeDrawer extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Selector<AuthProvider, String>(
+                    child: Selector<AppAuthProvider, String>(
                       builder: (_, value, __) => Text(value),
                       selector: (_, authProvider) =>
                           authProvider.user?.displayName ?? 'Não informado',
@@ -45,7 +45,7 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Alterar nome'),
-            onTap: () => showDialog<void>(
+            onTap: () => showAdaptiveDialog<void>(
               context: context,
               builder: (_) => ScaffoldMessenger(
                 child: Builder(
@@ -57,7 +57,7 @@ class HomeDrawer extends StatelessWidget {
                       ),
                       actions: [
                         TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: Navigator.of(context).pop,
                           child: const Text(
                             'Cancelar',
                             style: TextStyle(color: Colors.red),
@@ -77,7 +77,7 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Sair'),
-            onTap: () => context.read<AuthProvider>().logout(),
+            onTap: () => context.read<AppAuthProvider>().logout(),
           ),
         ],
       ),
@@ -86,7 +86,6 @@ class HomeDrawer extends StatelessWidget {
 
   Future<void> _onPressedChangeName(BuildContext context) async {
     final navigator = Navigator.of(context);
-    final scaffoldMessenger = ScaffoldMessenger.of(context);
 
     final nameValue = _nameVN.value;
     if (nameValue.isEmpty) {
@@ -95,27 +94,24 @@ class HomeDrawer extends StatelessWidget {
       // * overlay is not the same as the Scaffold, so the SnackBar is behind
       // * the AlertDialog. To fix this, we create a new ScaffoldMessenger
       // * inside showDialog and display it.
-      scaffoldMessenger.showSnackBar(
-        SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
           content: Row(
             children: [
-              const Icon(Icons.report, size: 20, color: Colors.black45),
-              const SizedBox(width: 10),
-              const Expanded(
+              Icon(Icons.report, size: 20, color: Colors.black45),
+              SizedBox(width: 10),
+              Expanded(
                 child: Text(
                   'Preencha um nome!',
                   style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
               ),
-              InkWell(
-                onTap: scaffoldMessenger.hideCurrentSnackBar,
-                child: const Icon(Icons.close, color: Colors.white),
-              ),
             ],
           ),
-          backgroundColor: const Color(0xffFA5456),
+          showCloseIcon: true,
+          backgroundColor: Color(0xffFA5456),
           elevation: 2,
-          shape: const RoundedRectangleBorder(
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(4)),
           ),
           behavior: SnackBarBehavior.floating,
@@ -123,7 +119,6 @@ class HomeDrawer extends StatelessWidget {
       );
     } else {
       Loader.show();
-
       await context.read<UserService>().updateDisplayName(name: nameValue);
       Loader.hide();
 

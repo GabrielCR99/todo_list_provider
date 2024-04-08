@@ -13,14 +13,14 @@ import 'login_controller.dart';
 
 part 'widgets/login_form.dart';
 
-class LoginPage extends StatefulWidget {
+final class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+final class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       everCallback: (notifier, _) {
         if (notifier is LoginController) {
           if (notifier.hasInfo) {
-            Messages.showInfo(message: notifier.infoMessage!);
+            showInfo(message: notifier.infoMessage!);
           }
         }
       },

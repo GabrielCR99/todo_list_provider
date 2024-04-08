@@ -6,15 +6,16 @@ import 'package:provider/provider.dart';
 import '../../../models/task_model.dart';
 import '../home_controller.dart';
 
-class Task extends StatelessWidget {
+final class Task extends StatelessWidget {
   final TaskModel model;
 
-  static final dateFormat = DateFormat('dd/MM/y');
+  static final _dateFormat = DateFormat('dd/MM/y');
 
   const Task({required this.model, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TaskModel(:dateTime, :description, :finished) = model;
     final controller = context.read<HomeController>();
 
     return Container(
@@ -44,19 +45,19 @@ class Task extends StatelessWidget {
         ),
         child: ListTile(
           leading: Checkbox(
-            value: model.finished,
+            value: finished,
             onChanged: (_) => controller.checkOrUncheckTask(task: model),
           ),
           title: Text(
-            dateFormat.format(model.dateTime),
+            _dateFormat.format(dateTime),
             style: TextStyle(
-              decoration: model.finished ? TextDecoration.lineThrough : null,
+              decoration: finished ? TextDecoration.lineThrough : null,
             ),
           ),
           subtitle: Text(
-            model.description,
+            description,
             style: TextStyle(
-              decoration: model.finished ? TextDecoration.lineThrough : null,
+              decoration: finished ? TextDecoration.lineThrough : null,
             ),
           ),
           shape: const RoundedRectangleBorder(

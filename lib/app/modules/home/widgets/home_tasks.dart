@@ -6,7 +6,7 @@ import '../../../models/task_model.dart';
 import '../home_controller.dart';
 import 'task.dart';
 
-class HomeTasks extends StatelessWidget {
+final class HomeTasks extends StatelessWidget {
   const HomeTasks({super.key});
 
   @override

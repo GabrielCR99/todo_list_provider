@@ -3,17 +3,16 @@ import '../../models/task_model.dart';
 import 'task_repository.dart';
 
 final class TaskRepositoryImpl implements TaskRepository {
-  final SqliteConnectionFactory _connection;
+  final SqliteConnectionFactory connection;
 
-  const TaskRepositoryImpl({required SqliteConnectionFactory connection})
-      : _connection = connection;
+  const TaskRepositoryImpl({required this.connection});
 
   @override
   Future<void> saveTask({
     required DateTime date,
     required String description,
   }) async {
-    final conn = await _connection.openConnection();
+    final conn = await connection.openConnection();
     await conn.insert('todo', {
       'id': null,
       'descricao': description,
@@ -30,7 +29,7 @@ final class TaskRepositoryImpl implements TaskRepository {
     final startFilter = DateTime(start.year, start.month, start.day);
     final endFilter = DateTime(end.year, end.month, end.day, 23, 59, 59);
 
-    final conn = await _connection.openConnection();
+    final conn = await connection.openConnection();
     final result = await conn.rawQuery(
       '''
  SELECT * 
@@ -45,7 +44,7 @@ final class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<void> checkOrUncheckTask({required TaskModel task}) async {
-    final conn = await _connection.openConnection();
+    final conn = await connection.openConnection();
     final finished = task.finished ? 1 : 0;
     await conn.rawUpdate(
       'UPDATE todo SET finalizado = ? WHERE id = ?',
@@ -55,7 +54,7 @@ final class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<void> deleteTaskById({required int id}) async {
-    final conn = await _connection.openConnection();
+    final conn = await connection.openConnection();
     await conn.rawDelete('DELETE FROM todo WHERE id = ? ', [id]);
   }
 }

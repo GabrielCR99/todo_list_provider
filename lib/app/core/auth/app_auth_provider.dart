@@ -6,12 +6,12 @@ import '../database/sqlite_connection_factory.dart';
 import '../navigator/app_navigator.dart';
 import '../ui/loader.dart';
 
-final class AuthProvider extends ChangeNotifier {
+final class AppAuthProvider extends ChangeNotifier {
   final FirebaseAuth _auth;
   final UserService _service;
   final SqliteConnectionFactory _connection;
 
-  AuthProvider({
+  AppAuthProvider({
     required FirebaseAuth auth,
     required UserService service,
     required SqliteConnectionFactory connection,
@@ -22,8 +22,10 @@ final class AuthProvider extends ChangeNotifier {
   Future<void> logout() async {
     Loader.show();
     final conn = await _connection.openConnection();
-    await conn.rawDelete('''DELETE FROM todo ''');
-    await _service.logout();
+    await Future.wait(
+      [conn.rawDelete('''DELETE FROM todo '''), _service.logout()],
+    );
+
     Loader.hide();
   }
 

@@ -1,11 +1,11 @@
 part of '../login_page.dart';
 
-class _LoginForm extends StatefulWidget {
+final class _LoginForm extends StatefulWidget {
   @override
   State<_LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<_LoginForm> {
+final class _LoginFormState extends State<_LoginForm> {
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -71,10 +71,9 @@ class _LoginFormState extends State<_LoginForm> {
     FocusScope.of(context).unfocus();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
-      context.read<LoginController>().login(
-            email: _emailEC.text,
-            password: _passwordEC.text,
-          );
+      context
+          .read<LoginController>()
+          .login(email: _emailEC.text, password: _passwordEC.text);
     }
   }
 
@@ -83,9 +82,7 @@ class _LoginFormState extends State<_LoginForm> {
       context.read<LoginController>().forgotPassword(email: _emailEC.text);
     } else {
       _emailFocus.requestFocus();
-      Messages.showError(
-        message: 'Digite um E-mail para recuperar a senha',
-      );
+      showError(message: 'Digite um E-mail para recuperar a senha');
     }
   }
 }

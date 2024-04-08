@@ -7,7 +7,7 @@ import '../../core/widgets/todo_list_field.dart';
 import 'create_task_controller.dart';
 import 'widgets/calendar_button.dart';
 
-class CreateTaskPage extends StatefulWidget {
+final class CreateTaskPage extends StatefulWidget {
   final CreateTaskController _controller;
 
   const CreateTaskPage({required CreateTaskController controller, super.key})
@@ -17,7 +17,7 @@ class CreateTaskPage extends StatefulWidget {
   State<CreateTaskPage> createState() => _CreateTaskPageState();
 }
 
-class _CreateTaskPageState extends State<CreateTaskPage> {
+final class _CreateTaskPageState extends State<CreateTaskPage> {
   final _descriptionEC = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -26,7 +26,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: widget._controller)
-        .listener(successCallback: (_, listener) => Navigator.pop(context));
+        .listener(successCallback: (_, __) => Navigator.pop(context));
   }
 
   @override
@@ -36,7 +36,7 @@ class _CreateTaskPageState extends State<CreateTaskPage> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: Navigator.of(context).pop,
             icon: const Icon(Icons.close, color: Colors.black),
           ),
         ],

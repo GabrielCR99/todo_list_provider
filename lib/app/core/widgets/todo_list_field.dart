@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../ui/todo_list_icons.dart';
 
-class TodoListField extends StatefulWidget {
+final class TodoListField extends StatefulWidget {
   final String label;
   final IconButton? suffixIconButton;
   final bool obscureText;
@@ -27,7 +27,7 @@ class TodoListField extends StatefulWidget {
   State<TodoListField> createState() => _TodoListFieldState();
 }
 
-class _TodoListFieldState extends State<TodoListField> {
+final class _TodoListFieldState extends State<TodoListField> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(

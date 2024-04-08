@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'app_widget.dart';
-import 'core/auth/auth_provider.dart';
+import 'core/auth/app_auth_provider.dart';
 import 'core/database/sqlite_connection_factory.dart';
 import 'repositories/user/user_repository.dart';
 import 'repositories/user/user_repository_impl.dart';
 import 'services/user/user_service.dart';
 import 'services/user/user_service_impl.dart';
 
-class AppModule extends StatelessWidget {
+final class AppModule extends StatelessWidget {
   const AppModule({super.key});
 
   @override
@@ -28,7 +28,7 @@ class AppModule extends StatelessWidget {
           lazy: true,
         ),
         ChangeNotifierProvider(
-          create: (context) => AuthProvider(
+          create: (context) => AppAuthProvider(
             auth: context.read(),
             service: context.read(),
             connection: context.read(),

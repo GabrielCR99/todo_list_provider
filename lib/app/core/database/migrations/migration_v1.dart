@@ -18,5 +18,5 @@ final class MigrationV1 implements Migration {
   }
 
   @override
-  void upgrade(Batch batch) => Never;
+  void upgrade(Batch batch) => ();
 }

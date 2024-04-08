@@ -11,14 +11,14 @@ import 'modules/home/home_module.dart';
 import 'modules/splash/splash_page.dart';
 import 'modules/tasks/task_module.dart';
 
-class AppWidget extends StatefulWidget {
+final class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
 
   @override
   State<AppWidget> createState() => _AppWidgetState();
 }
 
-class _AppWidgetState extends State<AppWidget> {
+final class _AppWidgetState extends State<AppWidget> {
   final _sqliteAdmin = SqliteAdminConnection();
 
   @override
@@ -39,7 +39,7 @@ class _AppWidgetState extends State<AppWidget> {
       },
       builder: Asuka.builder,
       title: 'To Do List Provider',
-      theme: TodoListUiConfig.theme,
+      theme: theme,
       locale: const Locale('pt', 'BR'),
       localizationsDelegates: const [
         ...GlobalMaterialLocalizations.delegates,

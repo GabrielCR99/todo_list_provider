@@ -9,9 +9,9 @@ sealed class Loader {
 
   static void show() {
     _entry ??= OverlayEntry(
-      builder: (_) => WillPopScope(
-        onWillPop: () async => false,
-        child: const ColoredBox(
+      builder: (_) => const PopScope(
+        canPop: false,
+        child: ColoredBox(
           color: Colors.black54,
           child: Center(child: CircularProgressIndicator.adaptive()),
         ),

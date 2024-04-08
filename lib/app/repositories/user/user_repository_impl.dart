@@ -18,12 +18,11 @@ final class UserRepositoryImpl implements UserRepository {
     required String password,
   }) async {
     try {
-      final credential = await _auth.createUserWithEmailAndPassword(
+      return (await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      );
-
-      return credential.user;
+      ))
+          .user;
     } on FirebaseAuthException catch (e, s) {
       log('Erro ao registrar', error: e, stackTrace: s);
       if (e.code == 'email-already-exists') {
@@ -53,12 +52,12 @@ final class UserRepositoryImpl implements UserRepository {
   @override
   Future<User?> login({required String email, required String password}) async {
     try {
-      final credential = await _auth.signInWithEmailAndPassword(
+      final UserCredential(:user) = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      return credential.user;
+      return user;
     } on PlatformException catch (e, s) {
       Error.throwWithStackTrace(
         AuthException(message: e.message ?? 'Erro ao realizar login '),
@@ -106,15 +105,16 @@ final class UserRepositoryImpl implements UserRepository {
             message: 'Você utilizou o email para cadastro no app.',
           );
         } else {
-          final googleAuth = await googleUser.authentication;
+          final GoogleSignInAuthentication(:accessToken, :idToken) =
+              await googleUser.authentication;
           final firebaseCredential = GoogleAuthProvider.credential(
-            accessToken: googleAuth.accessToken,
-            idToken: googleAuth.idToken,
+            accessToken: accessToken,
+            idToken: idToken,
           );
-          final userCredential =
+          final UserCredential(:user) =
               await _auth.signInWithCredential(firebaseCredential);
 
-          return userCredential.user;
+          return user;
         }
       }
     } on FirebaseException catch (e, s) {
@@ -130,10 +130,12 @@ final class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> logout() async {
     try {
-      await GoogleSignIn().signOut();
-      _auth.signOut();
+      await Future.wait([
+        GoogleSignIn().signOut(),
+        _auth.signOut(),
+      ]);
     } on Exception {
-      _auth.signOut();
+      await _auth.signOut();
     }
   }
 

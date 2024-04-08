@@ -4,33 +4,32 @@ import '../../repositories/tasks/task_repository.dart';
 import 'task_service.dart';
 
 final class TaskServiceImpl implements TaskService {
-  final TaskRepository _repository;
+  final TaskRepository repository;
 
-  const TaskServiceImpl({required TaskRepository repository})
-      : _repository = repository;
+  const TaskServiceImpl({required this.repository});
 
   @override
   Future<void> createTask({
     required DateTime date,
     required String description,
   }) =>
-      _repository.saveTask(date: date, description: description);
+      repository.saveTask(date: date, description: description);
 
   @override
   Future<List<TaskModel>> getToday() =>
-      _repository.findByPeriod(start: DateTime.now(), end: DateTime.now());
+      repository.findByPeriod(start: DateTime.now(), end: DateTime.now());
 
   @override
   Future<List<TaskModel>> getTomorrow() {
     final tomorrow = DateTime.now().add(const Duration(days: 1));
 
-    return _repository.findByPeriod(start: tomorrow, end: tomorrow);
+    return repository.findByPeriod(start: tomorrow, end: tomorrow);
   }
 
   @override
   Future<WeekTaskModel> getWeek() async {
-    final today = DateTime.now();
-    var startFilter = DateTime(today.year, today.month, today.day);
+    final DateTime(:year, :month, :day) = DateTime.now();
+    var startFilter = DateTime(year, month, day);
     DateTime endFilter;
 
     if (startFilter.weekday != DateTime.monday) {
@@ -41,7 +40,7 @@ final class TaskServiceImpl implements TaskService {
     endFilter = startFilter.add(const Duration(days: 7));
 
     final tasks =
-        await _repository.findByPeriod(start: startFilter, end: endFilter);
+        await repository.findByPeriod(start: startFilter, end: endFilter);
 
     return WeekTaskModel(
       startDate: startFilter,
@@ -52,9 +51,9 @@ final class TaskServiceImpl implements TaskService {
 
   @override
   Future<void> checkOrUncheckTask({required TaskModel task}) =>
-      _repository.checkOrUncheckTask(task: task);
+      repository.checkOrUncheckTask(task: task);
 
   @override
   Future<void> deleteTaskById({required int id}) =>
-      _repository.deleteTaskById(id: id);
+      repository.deleteTaskById(id: id);
 }

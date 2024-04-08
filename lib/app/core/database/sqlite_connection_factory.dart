@@ -4,7 +4,7 @@ import 'package:synchronized/synchronized.dart';
 
 import 'sqlite_migration_factory.dart';
 
-class SqliteConnectionFactory {
+final class SqliteConnectionFactory {
   static const _version = 1;
   static const _databaseName = 'TODO_LIST_PROVIDER';
 
@@ -49,9 +49,8 @@ class SqliteConnectionFactory {
     _db = null;
   }
 
-  Future<void> _onConfigure(Database db) async {
-    await db.execute('PRAGMA foreign_keys = ON');
-  }
+  Future<void> _onConfigure(Database db) =>
+      db.execute('PRAGMA foreign_keys = ON');
 
   Future<void> _onCreate(Database db, int _) async {
     final batch = db.batch();

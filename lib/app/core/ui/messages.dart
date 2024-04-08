@@ -1,11 +1,6 @@
 import 'package:asuka/asuka.dart';
 
-sealed class Messages {
-  const Messages._();
+void showError({required String message}) =>
+    AsukaSnackbar.alert(message).show();
 
-  static void showError({required String message}) =>
-      AsukaSnackbar.alert(message).show();
-
-  static void showInfo({required String message}) =>
-      AsukaSnackbar.info(message).show();
-}
+void showInfo({required String message}) => AsukaSnackbar.info(message).show();
