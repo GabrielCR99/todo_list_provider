@@ -11,7 +11,8 @@ final class HomeWeekFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<HomeController>();
+    final HomeController(:selectedDay, :filterByDay) =
+        context.read<HomeController>();
 
     return Visibility(
       visible: context.select<HomeController, bool>(
@@ -34,9 +35,8 @@ final class HomeWeekFilter extends StatelessWidget {
                 selectionColor: context.primaryColor,
                 initialSelectedDate: value,
                 daysCount: 7,
-                onDateChange: (date) => controller.selectedDay == date
-                    ? null
-                    : controller.filterByDay(date),
+                onDateChange: (date) =>
+                    selectedDay == date ? null : filterByDay(date),
                 locale: 'pt_BR',
               ),
               selector: (_, controller) =>

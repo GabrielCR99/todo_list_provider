@@ -28,6 +28,9 @@ final class TodoListField extends StatefulWidget {
 }
 
 final class _TodoListFieldState extends State<TodoListField> {
+  IconData _getIcon(bool show) =>
+      show ? TodoListIcons.eye : TodoListIcons.eyeSlash;
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -66,7 +69,4 @@ final class _TodoListFieldState extends State<TodoListField> {
     widget.controller?.dispose();
     super.dispose();
   }
-
-  IconData _getIcon(bool show) =>
-      show ? TodoListIcons.eye : TodoListIcons.eyeSlash;
 }

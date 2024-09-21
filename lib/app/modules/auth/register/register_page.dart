@@ -64,10 +64,8 @@ final class _RegisterPageState extends State<RegisterPage> {
         children: [
           SizedBox(
             height: MediaQuery.sizeOf(context).width * 0.5,
-            child: const FittedBox(
-              fit: BoxFit.fitHeight,
-              child: TodoListLogo(),
-            ),
+            child:
+                const FittedBox(fit: BoxFit.fitHeight, child: TodoListLogo()),
           ),
           _RegisterForm(),
         ],

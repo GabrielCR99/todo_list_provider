@@ -61,9 +61,10 @@ final class HomeController extends DefaultChangeNotifier {
       case TaskFilterEnum.tomorrow:
         tasks = await _service.getTomorrow();
       case TaskFilterEnum.week:
-        final weekModel = await _service.getWeek();
-        initialDateOfWeek = weekModel.startDate;
-        tasks = weekModel.tasks;
+        final WeekTaskModel(:startDate, tasks: weekTotalTasks) =
+            await _service.getWeek();
+        initialDateOfWeek = startDate;
+        tasks = weekTotalTasks;
     }
     filteredTasks = tasks;
     allTasks = tasks;

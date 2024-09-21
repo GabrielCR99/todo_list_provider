@@ -16,7 +16,8 @@ final class Task extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TaskModel(:dateTime, :description, :finished) = model;
-    final controller = context.read<HomeController>();
+    final HomeController(:deleteTask, :checkOrUncheckTask) =
+        context.read<HomeController>();
 
     return Container(
       decoration: const BoxDecoration(
@@ -32,7 +33,7 @@ final class Task extends StatelessWidget {
             SlidableAction(
               backgroundColor: const Color(0xFFFE4A49),
               foregroundColor: Colors.white,
-              onPressed: (_) => controller.deleteTask(task: model),
+              onPressed: (_) => deleteTask(task: model),
               icon: Icons.delete,
               spacing: 0,
               label: 'Deletar',
@@ -46,7 +47,7 @@ final class Task extends StatelessWidget {
         child: ListTile(
           leading: Checkbox(
             value: finished,
-            onChanged: (_) => controller.checkOrUncheckTask(task: model),
+            onChanged: (_) => checkOrUncheckTask(task: model),
           ),
           title: Text(
             _dateFormat.format(dateTime),

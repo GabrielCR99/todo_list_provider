@@ -19,14 +19,13 @@ final class CreateTaskPage extends StatefulWidget {
 
 final class _CreateTaskPageState extends State<CreateTaskPage> {
   final _descriptionEC = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: widget._controller)
-        .listener(successCallback: (_, __) => Navigator.pop(context));
+        .listener(successCallback: (_, __) => Navigator.pop<void>(context));
   }
 
   @override

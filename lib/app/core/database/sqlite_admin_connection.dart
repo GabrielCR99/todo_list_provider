@@ -7,13 +7,13 @@ final class SqliteAdminConnection with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    final connection = SqliteConnectionFactory();
+    final SqliteConnectionFactory(:closeConnection) = SqliteConnectionFactory();
 
     return switch (state) {
       AppLifecycleState.inactive ||
       AppLifecycleState.paused ||
       AppLifecycleState.detached =>
-        connection.closeConnection(),
+        closeConnection(),
       _ => null,
     };
   }

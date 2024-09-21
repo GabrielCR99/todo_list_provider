@@ -29,10 +29,11 @@ final class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     DefaultListenerNotifier(changeNotifier: widget._controller).listener();
-    scheduleMicrotask(() {
-      widget._controller.loadTotalTasks();
-      widget._controller.findTasks(filter: TaskFilterEnum.today);
-    });
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => widget
+        .._controller.loadTotalTasks()
+        .._controller.findTasks(filter: TaskFilterEnum.today),
+    );
   }
 
   @override
