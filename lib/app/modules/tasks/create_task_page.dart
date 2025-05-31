@@ -11,7 +11,7 @@ final class CreateTaskPage extends StatefulWidget {
   final CreateTaskController _controller;
 
   const CreateTaskPage({required CreateTaskController controller, super.key})
-      : _controller = controller;
+    : _controller = controller;
 
   @override
   State<CreateTaskPage> createState() => _CreateTaskPageState();
@@ -24,8 +24,9 @@ final class _CreateTaskPageState extends State<CreateTaskPage> {
   @override
   void initState() {
     super.initState();
-    DefaultListenerNotifier(changeNotifier: widget._controller)
-        .listener(successCallback: (_, __) => Navigator.pop<void>(context));
+    DefaultListenerNotifier(
+      changeNotifier: widget._controller,
+    ).listener(successCallback: (_, __) => Navigator.pop<void>(context));
   }
 
   @override

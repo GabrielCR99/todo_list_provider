@@ -29,7 +29,7 @@ final class CardFilter extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: selected ? context.primaryColor : Colors.white,
-          border: Border.all(color: Colors.grey.withOpacity(0.8)),
+          border: Border.all(color: Colors.grey.withValues(alpha: 0.8)),
           borderRadius: const BorderRadius.all(Radius.circular(30)),
         ),
         constraints: const BoxConstraints(maxWidth: 150, minHeight: 120),
@@ -55,11 +55,12 @@ final class CardFilter extends StatelessWidget {
             TweenAnimationBuilder<double>(
               tween: Tween(begin: 0, end: _getFinishedPercentage()),
               duration: const Duration(seconds: 1),
-              builder: (_, value, __) => LinearProgressIndicator(
+              builder: (_, value, _) => LinearProgressIndicator(
                 value: value,
-                backgroundColor:
-                    selected ? context.primaryColorLight : Colors.grey.shade300,
-                valueColor: AlwaysStoppedAnimation<Color>(
+                backgroundColor: selected
+                    ? context.primaryColorLight
+                    : Colors.grey.shade300,
+                valueColor: AlwaysStoppedAnimation(
                   selected ? Colors.white : context.primaryColor,
                 ),
               ),

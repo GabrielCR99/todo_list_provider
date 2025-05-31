@@ -21,8 +21,7 @@ final class UserRepositoryImpl implements UserRepository {
       return (await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
-      ))
-          .user;
+      )).user;
     } on FirebaseAuthException catch (e, s) {
       log('Erro ao registrar', error: e, stackTrace: s);
       if (e.code == 'email-already-exists') {
@@ -97,8 +96,9 @@ final class UserRepositoryImpl implements UserRepository {
       final googleUser = await GoogleSignIn().signIn();
 
       if (googleUser != null) {
-        final loginTypes =
-            await _auth.fetchSignInMethodsForEmail(googleUser.email);
+        final loginTypes = await _auth.fetchSignInMethodsForEmail(
+          googleUser.email,
+        );
 
         if (loginTypes.contains('password')) {
           throw const AuthException(
@@ -111,8 +111,9 @@ final class UserRepositoryImpl implements UserRepository {
             accessToken: accessToken,
             idToken: idToken,
           );
-          final UserCredential(:user) =
-              await _auth.signInWithCredential(firebaseCredential);
+          final UserCredential(:user) = await _auth.signInWithCredential(
+            firebaseCredential,
+          );
 
           return user;
         }
@@ -130,10 +131,7 @@ final class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> logout() async {
     try {
-      await Future.wait([
-        GoogleSignIn().signOut(),
-        _auth.signOut(),
-      ]);
+      await Future.wait([GoogleSignIn().signOut(), _auth.signOut()]);
     } on Exception {
       await _auth.signOut();
     }

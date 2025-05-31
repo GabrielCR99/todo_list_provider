@@ -28,16 +28,14 @@ final class SqliteConnectionFactory {
 
     if (_db == null) {
       await _lock.synchronized(
-        () async {
-          _db ??= await openDatabase(
-            finalDatabasePath,
-            version: _version,
-            onConfigure: _onConfigure,
-            onCreate: _onCreate,
-            onUpgrade: _onUpgrade,
-            onDowngrade: _onDowngrade,
-          );
-        },
+        () async => _db ??= await openDatabase(
+          finalDatabasePath,
+          version: _version,
+          onConfigure: _onConfigure,
+          onCreate: _onCreate,
+          onUpgrade: _onUpgrade,
+          onDowngrade: _onDowngrade,
+        ),
       );
     }
 
@@ -76,5 +74,5 @@ final class SqliteConnectionFactory {
     await batch.commit();
   }
 
-  Future<void> _onDowngrade(Database _, int __, int ___) async => Never;
+  Future<void> _onDowngrade(Database _, int _, int _) async => const ();
 }

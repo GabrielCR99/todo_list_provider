@@ -7,8 +7,6 @@ final theme = ThemeData(
   primaryColorLight: const Color(0xFFABC8F7),
   textTheme: GoogleFonts.mandaliTextTheme(),
   elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF5C77CE),
-    ),
+    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF5C77CE)),
   ),
 );

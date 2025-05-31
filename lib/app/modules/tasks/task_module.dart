@@ -10,23 +10,21 @@ import 'create_task_page.dart';
 
 final class TaskModule extends TodoListModule {
   TaskModule()
-      : super(
-          routes: {
-            '/task/create': (context) =>
-                CreateTaskPage(controller: context.read()),
-          },
-          bindings: [
-            Provider<TaskRepository>(
-              create: (context) =>
-                  TaskRepositoryImpl(connection: context.read()),
-            ),
-            Provider<TaskService>(
-              create: (context) => TaskServiceImpl(repository: context.read()),
-            ),
-            ChangeNotifierProvider(
-              create: (context) =>
-                  CreateTaskController(service: context.read()),
-            ),
-          ],
-        );
+    : super(
+        routes: {
+          '/task/create': (context) =>
+              CreateTaskPage(controller: context.read()),
+        },
+        bindings: [
+          Provider<TaskRepository>(
+            create: (context) => TaskRepositoryImpl(connection: context.read()),
+          ),
+          Provider<TaskService>(
+            create: (context) => TaskServiceImpl(repository: context.read()),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => CreateTaskController(service: context.read()),
+          ),
+        ],
+      );
 }

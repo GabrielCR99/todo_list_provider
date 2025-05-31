@@ -73,9 +73,10 @@ class _RegisterFormState extends State<_RegisterForm> {
     FocusScope.of(context).unfocus();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
-      context
-          .read<RegisterController>()
-          .register(email: _emailEC.text, password: _passwordEC.text);
+      context.read<RegisterController>().register(
+        email: _emailEC.text,
+        password: _passwordEC.text,
+      );
     }
   }
 }

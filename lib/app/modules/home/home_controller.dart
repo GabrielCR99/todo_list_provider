@@ -26,24 +26,27 @@ final class HomeController extends DefaultChangeNotifier {
       todayTasks as List<TaskModel>,
       tomorrow as List<TaskModel>,
       weekTasks as WeekTaskModel,
-    ] = await Future.wait(
-      [_service.getToday(), _service.getTomorrow(), _service.getWeek()],
-    );
+    ] = await Future.wait([
+      _service.getToday(),
+      _service.getTomorrow(),
+      _service.getWeek(),
+    ]);
 
-    todayTotalTasks = TotalTasksModel(
+    todayTotalTasks = (
       totalTasks: todayTasks.length,
       totalTasksDones: todayTasks.where((element) => element.finished).length,
     );
 
-    tomorrowTotalTasks = TotalTasksModel(
+    tomorrowTotalTasks = (
       totalTasks: tomorrow.length,
       totalTasksDones: tomorrow.where((element) => element.finished).length,
     );
 
-    weekTotalTasks = TotalTasksModel(
+    weekTotalTasks = (
       totalTasks: weekTasks.tasks.length,
-      totalTasksDones:
-          weekTasks.tasks.where((element) => element.finished).length,
+      totalTasksDones: weekTasks.tasks
+          .where((element) => element.finished)
+          .length,
     );
 
     notifyListeners();
@@ -61,8 +64,8 @@ final class HomeController extends DefaultChangeNotifier {
       case TaskFilterEnum.tomorrow:
         tasks = await _service.getTomorrow();
       case TaskFilterEnum.week:
-        final WeekTaskModel(:startDate, tasks: weekTotalTasks) =
-            await _service.getWeek();
+        final WeekTaskModel(:startDate, tasks: weekTotalTasks) = await _service
+            .getWeek();
         initialDateOfWeek = startDate;
         tasks = weekTotalTasks;
     }
@@ -89,8 +92,9 @@ final class HomeController extends DefaultChangeNotifier {
 
   void filterByDay(DateTime date) {
     selectedDay = date;
-    filteredTasks =
-        allTasks.where((task) => task.dateTime == selectedDay).toList();
+    filteredTasks = allTasks
+        .where((task) => task.dateTime == selectedDay)
+        .toList();
     notifyListeners();
   }
 

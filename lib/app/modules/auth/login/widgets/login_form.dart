@@ -71,9 +71,10 @@ final class _LoginFormState extends State<_LoginForm> {
     FocusScope.of(context).unfocus();
     final formValid = _formKey.currentState?.validate() ?? false;
     if (formValid) {
-      context
-          .read<LoginController>()
-          .login(email: _emailEC.text, password: _passwordEC.text);
+      context.read<LoginController>().login(
+        email: _emailEC.text,
+        password: _passwordEC.text,
+      );
     }
   }
 

@@ -24,8 +24,9 @@ final class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    DefaultListenerNotifier(changeNotifier: context.read<LoginController>())
-        .listener(
+    DefaultListenerNotifier(
+      changeNotifier: context.read<LoginController>(),
+    ).listener(
       everCallback: (notifier, _) {
         if (notifier is LoginController) {
           if (notifier.hasInfo) {
@@ -75,8 +76,9 @@ final class _LoginPageState extends State<LoginPage> {
                               padding: const EdgeInsets.all(5),
                               shape: const OutlineInputBorder(
                                 borderSide: BorderSide.none,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(30)),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(30),
+                                ),
                               ),
                               text: 'Continue com o Google',
                             ),

@@ -12,8 +12,7 @@ final class TaskServiceImpl implements TaskService {
   Future<void> createTask({
     required DateTime date,
     required String description,
-  }) =>
-      repository.saveTask(date: date, description: description);
+  }) => repository.saveTask(date: date, description: description);
 
   @override
   Future<List<TaskModel>> getToday() =>
@@ -33,20 +32,19 @@ final class TaskServiceImpl implements TaskService {
     DateTime endFilter;
 
     if (startFilter.weekday != DateTime.monday) {
-      startFilter =
-          startFilter.subtract(Duration(days: startFilter.weekday - 1));
+      startFilter = startFilter.subtract(
+        Duration(days: startFilter.weekday - 1),
+      );
     }
 
     endFilter = startFilter.add(const Duration(days: 7));
 
-    final tasks =
-        await repository.findByPeriod(start: startFilter, end: endFilter);
-
-    return WeekTaskModel(
-      startDate: startFilter,
-      endDate: endFilter,
-      tasks: tasks,
+    final tasks = await repository.findByPeriod(
+      start: startFilter,
+      end: endFilter,
     );
+
+    return (startDate: startFilter, endDate: endFilter, tasks: tasks);
   }
 
   @override

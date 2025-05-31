@@ -18,7 +18,7 @@ final class HomePage extends StatefulWidget {
   final HomeController _controller;
 
   const HomePage({required HomeController controller, super.key})
-      : _controller = controller;
+    : _controller = controller;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -98,11 +98,12 @@ final class _HomePageState extends State<HomePage> {
   Future<void> _goToCreateTask() async {
     await Navigator.of(context).push(
       PageRouteBuilder<void>(
-        pageBuilder: (_, __, ___) =>
-            TaskModule().routes['/task/create']!(context),
-        transitionsBuilder: (_, animation, __, child) {
-          animation =
-              CurvedAnimation(parent: animation, curve: Curves.easeInQuad);
+        pageBuilder: (_, _, _) => TaskModule().routes['/task/create']!(context),
+        transitionsBuilder: (_, animation, _, child) {
+          animation = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInQuad,
+          );
 
           return ScaleTransition(
             scale: animation,

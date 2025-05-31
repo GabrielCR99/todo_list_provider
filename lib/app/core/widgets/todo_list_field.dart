@@ -35,7 +35,7 @@ final class _TodoListFieldState extends State<TodoListField> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: widget._obscureTextVN,
-      builder: (_, obscureTextValue, __) => TextFormField(
+      builder: (_, obscureTextValue, _) => TextFormField(
         controller: widget.controller,
         focusNode: widget.focusNode,
         decoration: InputDecoration(

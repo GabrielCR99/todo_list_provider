@@ -10,15 +10,15 @@ abstract base class TodoListModule {
   const TodoListModule({
     required Map<String, WidgetBuilder> routes,
     List<SingleChildWidget>? bindings,
-  })  : _routes = routes,
-        _bindings = bindings;
+  }) : _routes = routes,
+       _bindings = bindings;
 
   Map<String, WidgetBuilder> get routes => _routes.map(
-        (key, pageBuilder) => MapEntry(
-          key,
-          (_) => TodoListPage(page: pageBuilder, bindings: _bindings),
-        ),
-      );
+    (key, pageBuilder) => MapEntry(
+      key,
+      (_) => TodoListPage(page: pageBuilder, bindings: _bindings),
+    ),
+  );
 
   Widget getPage({required String path}) {
     final widgetBuilder = _routes[path];

@@ -8,20 +8,20 @@ import 'register/register_page.dart';
 
 final class AuthModule extends TodoListModule {
   AuthModule()
-      : super(
-          routes: {
-            '/login': (_) => const LoginPage(),
-            '/register': (_) => const RegisterPage(),
-          },
-          bindings: [
-            ChangeNotifierProvider(
-              create: (context) => LoginController(service: context.read()),
-              lazy: true,
-            ),
-            ChangeNotifierProvider(
-              create: (context) => RegisterController(service: context.read()),
-              lazy: true,
-            ),
-          ],
-        );
+    : super(
+        routes: {
+          '/login': (_) => const LoginPage(),
+          '/register': (_) => const RegisterPage(),
+        },
+        bindings: [
+          ChangeNotifierProvider(
+            create: (context) => LoginController(service: context.read()),
+            lazy: true,
+          ),
+          ChangeNotifierProvider(
+            create: (context) => RegisterController(service: context.read()),
+            lazy: true,
+          ),
+        ],
+      );
 }

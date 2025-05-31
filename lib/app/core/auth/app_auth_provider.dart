@@ -15,30 +15,29 @@ final class AppAuthProvider extends ChangeNotifier {
     required FirebaseAuth auth,
     required UserService service,
     required SqliteConnectionFactory connection,
-  })  : _auth = auth,
-        _service = service,
-        _connection = connection;
+  }) : _auth = auth,
+       _service = service,
+       _connection = connection;
 
   Future<void> logout() async {
     Loader.show();
     final conn = await _connection.openConnection();
-    await Future.wait(
-      [conn.rawDelete('''DELETE FROM todo '''), _service.logout()],
-    );
+    await Future.wait([
+      conn.rawDelete('''DELETE FROM todo '''),
+      _service.logout(),
+    ]);
 
     Loader.hide();
   }
 
   User? get user => _auth.currentUser;
 
-  void loadListener() {
-    _auth.userChanges().listen((_) => notifyListeners());
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        AppNavigator.to.pushNamedAndRemoveUntil('/home', (_) => false);
-      } else {
-        AppNavigator.to.pushNamedAndRemoveUntil('/login', (_) => false);
-      }
-    });
-  }
+  void loadListener() => _auth
+    ..userChanges().listen((_) => notifyListeners())
+    ..authStateChanges().listen(
+      (user) => AppNavigator.to.pushNamedAndRemoveUntil(
+        user != null ? '/home' : '/login',
+        (_) => false,
+      ),
+    );
 }

@@ -12,10 +12,11 @@ final class HomeHeader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20),
       child: Selector<AppAuthProvider, String>(
-        builder: (_, userName, __) => Text(
+        builder: (_, userName, _) => Text(
           'E aí, $userName!',
-          style: context.textTheme.headlineSmall
-              ?.copyWith(fontWeight: FontWeight.bold),
+          style: context.textTheme.headlineSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
         selector: (_, authProvider) =>
             authProvider.user?.displayName ?? 'Não informado',

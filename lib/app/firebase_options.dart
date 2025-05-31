@@ -25,16 +25,16 @@ final class DefaultFirebaseOptions {
       TargetPlatform.iOS => ios,
       TargetPlatform.macOS => macos,
       TargetPlatform.windows => throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        ),
+        'DefaultFirebaseOptions have not been configured for windows - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      ),
       TargetPlatform.linux => throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        ),
+        'DefaultFirebaseOptions have not been configured for linux - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      ),
       _ => throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
-        ),
+        'DefaultFirebaseOptions are not supported for this platform.',
+      ),
     };
   }
 

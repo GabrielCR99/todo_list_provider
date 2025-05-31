@@ -1,3 +1,4 @@
+import '../../../adapters/task_adapter.dart';
 import '../../core/database/sqlite_connection_factory.dart';
 import '../../models/task_model.dart';
 import 'task_repository.dart';
@@ -39,17 +40,17 @@ final class TaskRepositoryImpl implements TaskRepository {
       [startFilter.toIso8601String(), endFilter.toIso8601String()],
     );
 
-    return result.map(TaskModel.fromMap).toList();
+    return result.map(TaskAdapter.fromMap).toList();
   }
 
   @override
   Future<void> checkOrUncheckTask({required TaskModel task}) async {
     final conn = await connection.openConnection();
     final finished = task.finished ? 1 : 0;
-    await conn.rawUpdate(
-      'UPDATE todo SET finalizado = ? WHERE id = ?',
-      [finished, task.id],
-    );
+    await conn.rawUpdate('UPDATE todo SET finalizado = ? WHERE id = ?', [
+      finished,
+      task.id,
+    ]);
   }
 
   @override

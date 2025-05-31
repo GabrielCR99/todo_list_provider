@@ -11,8 +11,8 @@ final class HomeWeekFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController(:selectedDay, :filterByDay) =
-        context.read<HomeController>();
+    final HomeController(:selectedDay, :filterByDay) = context
+        .read<HomeController>();
 
     return Visibility(
       visible: context.select<HomeController, bool>(
@@ -27,7 +27,7 @@ final class HomeWeekFilter extends StatelessWidget {
           SizedBox(
             height: 90,
             child: Selector<HomeController, DateTime>(
-              builder: (_, value, __) => DatePicker(
+              builder: (_, value, _) => DatePicker(
                 value,
                 monthTextStyle: const TextStyle(fontSize: 8),
                 dayTextStyle: const TextStyle(fontSize: 13),

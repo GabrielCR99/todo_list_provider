@@ -12,8 +12,7 @@ final class SqliteAdminConnection with WidgetsBindingObserver {
     return switch (state) {
       AppLifecycleState.inactive ||
       AppLifecycleState.paused ||
-      AppLifecycleState.detached =>
-        closeConnection(),
+      AppLifecycleState.detached => closeConnection(),
       _ => null,
     };
   }

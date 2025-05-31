@@ -16,8 +16,8 @@ final class Task extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TaskModel(:dateTime, :description, :finished) = model;
-    final HomeController(:deleteTask, :checkOrUncheckTask) =
-        context.read<HomeController>();
+    final HomeController(:deleteTask, :checkOrUncheckTask) = context
+        .read<HomeController>();
 
     return Container(
       decoration: const BoxDecoration(

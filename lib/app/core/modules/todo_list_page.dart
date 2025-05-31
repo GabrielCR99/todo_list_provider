@@ -13,8 +13,8 @@ final class TodoListPage extends StatelessWidget {
     required WidgetBuilder page,
     List<SingleChildWidget>? bindings,
     super.key,
-  })  : _bindings = bindings,
-        _page = page {
+  }) : _bindings = bindings,
+       _page = page {
     assert(
       _bindings?.isNotEmpty ?? false || _bindings == null,
       'Bindings must not be empty or null, because MultiProvider does not '

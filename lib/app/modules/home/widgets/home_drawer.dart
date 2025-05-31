@@ -17,12 +17,13 @@ class HomeDrawer extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            decoration:
-                BoxDecoration(color: context.primaryColor.withAlpha(70)),
+            decoration: BoxDecoration(
+              color: context.primaryColor.withAlpha(70),
+            ),
             child: Row(
               children: [
                 Selector<AppAuthProvider, String>(
-                  builder: (_, value, __) => CircleAvatar(
+                  builder: (_, value, _) => CircleAvatar(
                     backgroundImage: NetworkImage(value),
                     radius: 30,
                   ),
@@ -34,7 +35,7 @@ class HomeDrawer extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: Selector<AppAuthProvider, String>(
-                      builder: (_, value, __) => Text(value),
+                      builder: (_, value, _) => Text(value),
                       selector: (_, authProvider) =>
                           authProvider.user?.displayName ?? 'Não informado',
                     ),
@@ -77,7 +78,7 @@ class HomeDrawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Sair'),
-            onTap: () => context.read<AppAuthProvider>().logout(),
+            onTap: context.read<AppAuthProvider>().logout,
           ),
         ],
       ),
